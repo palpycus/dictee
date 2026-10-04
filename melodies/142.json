@@ -1,0 +1,218 @@
+{
+ "id": "142",
+ "number": 142,
+ "variant": null,
+ "page": 15,
+ "section": "Nouveauté – La note la",
+ "clef": "treble",
+ "keySignature": 1,
+ "key": "G",
+ "mode": "major",
+ "meter": "3/4",
+ "anacrusis": false,
+ "staves": 2,
+ "ticksPerQuarter": 12,
+ "measures": [
+  [
+   {
+    "type": "note",
+    "pitch": "B4",
+    "step": "B",
+    "octave": 4,
+    "alter": 0,
+    "midi": 71,
+    "value": "quarter",
+    "ticks": 12
+   },
+   {
+    "type": "note",
+    "pitch": "A4",
+    "step": "A",
+    "octave": 4,
+    "alter": 0,
+    "midi": 69,
+    "value": "quarter",
+    "ticks": 12
+   },
+   {
+    "type": "note",
+    "pitch": "G4",
+    "step": "G",
+    "octave": 4,
+    "alter": 0,
+    "midi": 67,
+    "value": "quarter",
+    "ticks": 12
+   }
+  ],
+  [
+   {
+    "type": "note",
+    "pitch": "F#4",
+    "step": "F",
+    "octave": 4,
+    "alter": 1,
+    "midi": 66,
+    "value": "quarter",
+    "dots": 1,
+    "ticks": 18
+   },
+   {
+    "type": "note",
+    "pitch": "G4",
+    "step": "G",
+    "octave": 4,
+    "alter": 0,
+    "midi": 67,
+    "value": "eighth",
+    "ticks": 6
+   },
+   {
+    "type": "note",
+    "pitch": "A4",
+    "step": "A",
+    "octave": 4,
+    "alter": 0,
+    "midi": 69,
+    "value": "quarter",
+    "ticks": 12
+   }
+  ],
+  [
+   {
+    "type": "note",
+    "pitch": "B4",
+    "step": "B",
+    "octave": 4,
+    "alter": 0,
+    "midi": 71,
+    "value": "half",
+    "ticks": 24
+   },
+   {
+    "type": "note",
+    "pitch": "G4",
+    "step": "G",
+    "octave": 4,
+    "alter": 0,
+    "midi": 67,
+    "value": "quarter",
+    "ticks": 12
+   }
+  ],
+  [
+   {
+    "type": "note",
+    "pitch": "B4",
+    "step": "B",
+    "octave": 4,
+    "alter": 0,
+    "midi": 71,
+    "value": "half",
+    "ticks": 24
+   },
+   {
+    "type": "note",
+    "pitch": "D5",
+    "step": "D",
+    "octave": 5,
+    "alter": 0,
+    "midi": 74,
+    "value": "quarter",
+    "ticks": 12
+   }
+  ],
+  [
+   {
+    "type": "note",
+    "pitch": "B4",
+    "step": "B",
+    "octave": 4,
+    "alter": 0,
+    "midi": 71,
+    "value": "half",
+    "dots": 1,
+    "ticks": 36
+   }
+  ],
+  [
+   {
+    "type": "note",
+    "pitch": "A4",
+    "step": "A",
+    "octave": 4,
+    "alter": 0,
+    "midi": 69,
+    "value": "half",
+    "dots": 1,
+    "ticks": 36
+   }
+  ],
+  [
+   {
+    "type": "note",
+    "pitch": "G4",
+    "step": "G",
+    "octave": 4,
+    "alter": 0,
+    "midi": 67,
+    "value": "quarter",
+    "ticks": 12
+   },
+   {
+    "type": "note",
+    "pitch": "G4",
+    "step": "G",
+    "octave": 4,
+    "alter": 0,
+    "midi": 67,
+    "value": "eighth",
+    "ticks": 6
+   },
+   {
+    "type": "note",
+    "pitch": "G4",
+    "step": "G",
+    "octave": 4,
+    "alter": 0,
+    "midi": 67,
+    "value": "eighth",
+    "ticks": 6
+   },
+   {
+    "type": "note",
+    "pitch": "G4",
+    "step": "G",
+    "octave": 4,
+    "alter": 0,
+    "midi": 67,
+    "value": "quarter",
+    "ticks": 12
+   }
+  ],
+  [
+   {
+    "type": "note",
+    "pitch": "G4",
+    "step": "G",
+    "octave": 4,
+    "alter": 0,
+    "midi": 67,
+    "value": "quarter",
+    "ticks": 12
+   },
+   {
+    "type": "rest",
+    "value": "quarter",
+    "ticks": 12
+   },
+   {
+    "type": "rest",
+    "value": "quarter",
+    "ticks": 12
+   }
+  ]
+ ],
+ "abc": "X:142\nT:Dictée 142\nM:3/4\nL:1/16\nK:G\nB4 A4 G4 | F6 G2 A4 | B8 G4 | B8 d4 | B12 | A12 | G4 G2G2 G4 | G4 z4 z4 |]\n",
+ "issues": []
+}

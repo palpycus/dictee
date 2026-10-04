@@ -1,0 +1,254 @@
+{
+ "id": "207",
+ "number": 207,
+ "variant": null,
+ "page": 27,
+ "section": "Nouveautés – Le rythme ♪ , la quarte ascendante",
+ "clef": "treble",
+ "keySignature": 0,
+ "key": "Am",
+ "mode": "minor",
+ "meter": "3/8",
+ "anacrusis": true,
+ "staves": 2,
+ "ticksPerQuarter": 12,
+ "measures": [
+  [
+   {
+    "type": "note",
+    "pitch": "E4",
+    "step": "E",
+    "octave": 4,
+    "alter": 0,
+    "midi": 64,
+    "value": "eighth",
+    "ticks": 6
+   }
+  ],
+  [
+   {
+    "type": "note",
+    "pitch": "A4",
+    "step": "A",
+    "octave": 4,
+    "alter": 0,
+    "midi": 69,
+    "value": "eighth",
+    "dots": 1,
+    "ticks": 9
+   },
+   {
+    "type": "note",
+    "pitch": "G#4",
+    "step": "G",
+    "octave": 4,
+    "alter": 1,
+    "midi": 68,
+    "accidental": "sharp",
+    "value": "sixteenth",
+    "ticks": 3
+   },
+   {
+    "type": "note",
+    "pitch": "A4",
+    "step": "A",
+    "octave": 4,
+    "alter": 0,
+    "midi": 69,
+    "value": "eighth",
+    "ticks": 6
+   }
+  ],
+  [
+   {
+    "type": "note",
+    "pitch": "B4",
+    "step": "B",
+    "octave": 4,
+    "alter": 0,
+    "midi": 71,
+    "value": "eighth",
+    "ticks": 6
+   },
+   {
+    "type": "note",
+    "pitch": "C5",
+    "step": "C",
+    "octave": 5,
+    "alter": 0,
+    "midi": 72,
+    "value": "eighth",
+    "ticks": 6
+   },
+   {
+    "type": "note",
+    "pitch": "D5",
+    "step": "D",
+    "octave": 5,
+    "alter": 0,
+    "midi": 74,
+    "value": "eighth",
+    "ticks": 6
+   }
+  ],
+  [
+   {
+    "type": "note",
+    "pitch": "E5",
+    "step": "E",
+    "octave": 5,
+    "alter": 0,
+    "midi": 76,
+    "value": "quarter",
+    "ticks": 12
+   },
+   {
+    "type": "note",
+    "pitch": "A4",
+    "step": "A",
+    "octave": 4,
+    "alter": 0,
+    "midi": 69,
+    "value": "eighth",
+    "ticks": 6
+   }
+  ],
+  [
+   {
+    "type": "note",
+    "pitch": "D5",
+    "step": "D",
+    "octave": 5,
+    "alter": 0,
+    "midi": 74,
+    "value": "quarter",
+    "ticks": 12
+   },
+   {
+    "type": "note",
+    "pitch": "C5",
+    "step": "C",
+    "octave": 5,
+    "alter": 0,
+    "midi": 72,
+    "value": "eighth",
+    "ticks": 6
+   }
+  ],
+  [
+   {
+    "type": "note",
+    "pitch": "B4",
+    "step": "B",
+    "octave": 4,
+    "alter": 0,
+    "midi": 71,
+    "value": "eighth",
+    "dots": 1,
+    "ticks": 9
+   },
+   {
+    "type": "note",
+    "pitch": "A4",
+    "step": "A",
+    "octave": 4,
+    "alter": 0,
+    "midi": 69,
+    "value": "sixteenth",
+    "ticks": 3
+   },
+   {
+    "type": "note",
+    "pitch": "G#4",
+    "step": "G",
+    "octave": 4,
+    "alter": 1,
+    "midi": 68,
+    "accidental": "sharp",
+    "value": "eighth",
+    "ticks": 6
+   }
+  ],
+  [
+   {
+    "type": "note",
+    "pitch": "A4",
+    "step": "A",
+    "octave": 4,
+    "alter": 0,
+    "midi": 69,
+    "value": "eighth",
+    "ticks": 6
+   },
+   {
+    "type": "note",
+    "pitch": "G4",
+    "step": "G",
+    "octave": 4,
+    "alter": 0,
+    "midi": 67,
+    "accidental": "natural",
+    "value": "eighth",
+    "ticks": 6
+   },
+   {
+    "type": "note",
+    "pitch": "F4",
+    "step": "F",
+    "octave": 4,
+    "alter": 0,
+    "midi": 65,
+    "value": "eighth",
+    "ticks": 6
+   }
+  ],
+  [
+   {
+    "type": "note",
+    "pitch": "E4",
+    "step": "E",
+    "octave": 4,
+    "alter": 0,
+    "midi": 64,
+    "value": "eighth",
+    "ticks": 6
+   },
+   {
+    "type": "note",
+    "pitch": "F#4",
+    "step": "F",
+    "octave": 4,
+    "alter": 1,
+    "midi": 66,
+    "accidental": "sharp",
+    "value": "eighth",
+    "ticks": 6
+   },
+   {
+    "type": "note",
+    "pitch": "G#4",
+    "step": "G",
+    "octave": 4,
+    "alter": 1,
+    "midi": 68,
+    "accidental": "sharp",
+    "value": "eighth",
+    "ticks": 6
+   }
+  ],
+  [
+   {
+    "type": "note",
+    "pitch": "A4",
+    "step": "A",
+    "octave": 4,
+    "alter": 0,
+    "midi": 69,
+    "value": "quarter",
+    "ticks": 12
+   }
+  ]
+ ],
+ "abc": "X:207\nT:Dictée 207\nM:3/8\nL:1/16\nK:Am\nE2 | A3^GA2 | B2c2d2 | e4 A2 | d4 c2 | B3A^G2 | A2G2F2 | E2^F2^G2 | A4 |]\n",
+ "issues": []
+}

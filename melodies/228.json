@@ -1,0 +1,291 @@
+{
+ "id": "228",
+ "number": 228,
+ "variant": null,
+ "page": 31,
+ "section": "Nouveautés – Le rythme ♪ , la tonalité de si",
+ "clef": "bass",
+ "keySignature": -2,
+ "key": "Bb",
+ "mode": "major",
+ "meter": "4/4",
+ "anacrusis": false,
+ "staves": 2,
+ "ticksPerQuarter": 12,
+ "measures": [
+  [
+   {
+    "type": "note",
+    "pitch": "Bb2",
+    "step": "B",
+    "octave": 2,
+    "alter": -1,
+    "midi": 46,
+    "value": "half",
+    "ticks": 24
+   },
+   {
+    "type": "note",
+    "pitch": "Bb3",
+    "step": "B",
+    "octave": 3,
+    "alter": -1,
+    "midi": 58,
+    "value": "half",
+    "ticks": 24
+   }
+  ],
+  [
+   {
+    "type": "note",
+    "pitch": "C4",
+    "step": "C",
+    "octave": 4,
+    "alter": 0,
+    "midi": 60,
+    "value": "eighth",
+    "ticks": 6
+   },
+   {
+    "type": "note",
+    "pitch": "Bb3",
+    "step": "B",
+    "octave": 3,
+    "alter": -1,
+    "midi": 58,
+    "value": "eighth",
+    "ticks": 6
+   },
+   {
+    "type": "note",
+    "pitch": "A3",
+    "step": "A",
+    "octave": 3,
+    "alter": 0,
+    "midi": 57,
+    "value": "eighth",
+    "ticks": 6
+   },
+   {
+    "type": "note",
+    "pitch": "C4",
+    "step": "C",
+    "octave": 4,
+    "alter": 0,
+    "midi": 60,
+    "value": "eighth",
+    "ticks": 6
+   },
+   {
+    "type": "note",
+    "pitch": "Bb3",
+    "step": "B",
+    "octave": 3,
+    "alter": -1,
+    "midi": 58,
+    "value": "quarter",
+    "ticks": 12
+   },
+   {
+    "type": "note",
+    "pitch": "F3",
+    "step": "F",
+    "octave": 3,
+    "alter": 0,
+    "midi": 53,
+    "value": "quarter",
+    "ticks": 12
+   }
+  ],
+  [
+   {
+    "type": "note",
+    "pitch": "G3",
+    "step": "G",
+    "octave": 3,
+    "alter": 0,
+    "midi": 55,
+    "value": "eighth",
+    "ticks": 6
+   },
+   {
+    "type": "note",
+    "pitch": "F3",
+    "step": "F",
+    "octave": 3,
+    "alter": 0,
+    "midi": 53,
+    "value": "eighth",
+    "ticks": 6
+   },
+   {
+    "type": "note",
+    "pitch": "Eb3",
+    "step": "E",
+    "octave": 3,
+    "alter": -1,
+    "midi": 51,
+    "value": "quarter",
+    "ticks": 12
+   },
+   {
+    "type": "note",
+    "pitch": "F3",
+    "step": "F",
+    "octave": 3,
+    "alter": 0,
+    "midi": 53,
+    "value": "eighth",
+    "ticks": 6
+   },
+   {
+    "type": "note",
+    "pitch": "Eb3",
+    "step": "E",
+    "octave": 3,
+    "alter": -1,
+    "midi": 51,
+    "value": "eighth",
+    "ticks": 6
+   },
+   {
+    "type": "note",
+    "pitch": "D3",
+    "step": "D",
+    "octave": 3,
+    "alter": 0,
+    "midi": 50,
+    "value": "quarter",
+    "ticks": 12
+   }
+  ],
+  [
+   {
+    "type": "note",
+    "pitch": "Eb3",
+    "step": "E",
+    "octave": 3,
+    "alter": -1,
+    "midi": 51,
+    "value": "eighth",
+    "ticks": 6
+   },
+   {
+    "type": "note",
+    "pitch": "D3",
+    "step": "D",
+    "octave": 3,
+    "alter": 0,
+    "midi": 50,
+    "value": "eighth",
+    "ticks": 6
+   },
+   {
+    "type": "note",
+    "pitch": "C3",
+    "step": "C",
+    "octave": 3,
+    "alter": 0,
+    "midi": 48,
+    "value": "eighth",
+    "ticks": 6
+   },
+   {
+    "type": "note",
+    "pitch": "Eb3",
+    "step": "E",
+    "octave": 3,
+    "alter": -1,
+    "midi": 51,
+    "value": "eighth",
+    "ticks": 6
+   },
+   {
+    "type": "note",
+    "pitch": "D3",
+    "step": "D",
+    "octave": 3,
+    "alter": 0,
+    "midi": 50,
+    "value": "eighth",
+    "ticks": 6
+   },
+   {
+    "type": "note",
+    "pitch": "C3",
+    "step": "C",
+    "octave": 3,
+    "alter": 0,
+    "midi": 48,
+    "value": "eighth",
+    "ticks": 6
+   },
+   {
+    "type": "note",
+    "pitch": "Bb2",
+    "step": "B",
+    "octave": 2,
+    "alter": -1,
+    "midi": 46,
+    "value": "quarter",
+    "ticks": 12
+   }
+  ],
+  [
+   {
+    "type": "note",
+    "pitch": "C3",
+    "step": "C",
+    "octave": 3,
+    "alter": 0,
+    "midi": 48,
+    "value": "quarter",
+    "ticks": 12
+   },
+   {
+    "type": "note",
+    "pitch": "F3",
+    "step": "F",
+    "octave": 3,
+    "alter": 0,
+    "midi": 53,
+    "value": "quarter",
+    "ticks": 12
+   },
+   {
+    "type": "note",
+    "pitch": "D3",
+    "step": "D",
+    "octave": 3,
+    "alter": 0,
+    "midi": 50,
+    "value": "quarter",
+    "ticks": 12
+   },
+   {
+    "type": "note",
+    "pitch": "C3",
+    "step": "C",
+    "octave": 3,
+    "alter": 0,
+    "midi": 48,
+    "value": "quarter",
+    "ticks": 12
+   }
+  ],
+  [
+   {
+    "type": "note",
+    "pitch": "Bb2",
+    "step": "B",
+    "octave": 2,
+    "alter": -1,
+    "midi": 46,
+    "value": "whole",
+    "ticks": 48
+   }
+  ]
+ ],
+ "abc": "X:228\nT:Dictée 228\nM:4/4\nL:1/16\nK:Bb clef=bass\nB,,8 B,8 | C2B,2A,2C2 B,4 F,4 | G,2F,2 E,4 F,2E,2 D,4 | E,2D,2C,2E,2 D,2C,2 B,,4 | C,4 F,4 D,4 C,4 | B,,16 |]\n",
+ "issues": []
+}

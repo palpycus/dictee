@@ -1,0 +1,218 @@
+{
+ "id": "203",
+ "number": 203,
+ "variant": null,
+ "page": 26,
+ "section": "Nouveautés – La gamme de la mineur mélodique, la quarte juste (en descendant)",
+ "clef": "bass",
+ "keySignature": 0,
+ "key": "C",
+ "mode": "major",
+ "meter": "3/8",
+ "anacrusis": false,
+ "staves": 1,
+ "ticksPerQuarter": 12,
+ "measures": [
+  [
+   {
+    "type": "note",
+    "pitch": "C3",
+    "step": "C",
+    "octave": 3,
+    "alter": 0,
+    "midi": 48,
+    "value": "quarter",
+    "ticks": 12
+   },
+   {
+    "type": "note",
+    "pitch": "G3",
+    "step": "G",
+    "octave": 3,
+    "alter": 0,
+    "midi": 55,
+    "value": "eighth",
+    "ticks": 6
+   }
+  ],
+  [
+   {
+    "type": "note",
+    "pitch": "F3",
+    "step": "F",
+    "octave": 3,
+    "alter": 0,
+    "midi": 53,
+    "value": "eighth",
+    "dots": 1,
+    "ticks": 9
+   },
+   {
+    "type": "note",
+    "pitch": "E3",
+    "step": "E",
+    "octave": 3,
+    "alter": 0,
+    "midi": 52,
+    "value": "sixteenth",
+    "ticks": 3
+   },
+   {
+    "type": "note",
+    "pitch": "D3",
+    "step": "D",
+    "octave": 3,
+    "alter": 0,
+    "midi": 50,
+    "value": "eighth",
+    "ticks": 6
+   }
+  ],
+  [
+   {
+    "type": "note",
+    "pitch": "E3",
+    "step": "E",
+    "octave": 3,
+    "alter": 0,
+    "midi": 52,
+    "value": "eighth",
+    "ticks": 6
+   },
+   {
+    "type": "note",
+    "pitch": "D3",
+    "step": "D",
+    "octave": 3,
+    "alter": 0,
+    "midi": 50,
+    "value": "eighth",
+    "ticks": 6
+   },
+   {
+    "type": "note",
+    "pitch": "E3",
+    "step": "E",
+    "octave": 3,
+    "alter": 0,
+    "midi": 52,
+    "value": "eighth",
+    "ticks": 6
+   }
+  ],
+  [
+   {
+    "type": "note",
+    "pitch": "D3",
+    "step": "D",
+    "octave": 3,
+    "alter": 0,
+    "midi": 50,
+    "value": "quarter",
+    "dots": 1,
+    "ticks": 18
+   }
+  ],
+  [
+   {
+    "type": "note",
+    "pitch": "E3",
+    "step": "E",
+    "octave": 3,
+    "alter": 0,
+    "midi": 52,
+    "value": "eighth",
+    "ticks": 6
+   },
+   {
+    "type": "note",
+    "pitch": "D3",
+    "step": "D",
+    "octave": 3,
+    "alter": 0,
+    "midi": 50,
+    "value": "eighth",
+    "ticks": 6
+   },
+   {
+    "type": "note",
+    "pitch": "F3",
+    "step": "F",
+    "octave": 3,
+    "alter": 0,
+    "midi": 53,
+    "value": "eighth",
+    "ticks": 6
+   }
+  ],
+  [
+   {
+    "type": "note",
+    "pitch": "G3",
+    "step": "G",
+    "octave": 3,
+    "alter": 0,
+    "midi": 55,
+    "value": "quarter",
+    "ticks": 12
+   },
+   {
+    "type": "note",
+    "pitch": "C3",
+    "step": "C",
+    "octave": 3,
+    "alter": 0,
+    "midi": 48,
+    "value": "eighth",
+    "ticks": 6
+   }
+  ],
+  [
+   {
+    "type": "note",
+    "pitch": "E3",
+    "step": "E",
+    "octave": 3,
+    "alter": 0,
+    "midi": 52,
+    "value": "eighth",
+    "ticks": 6
+   },
+   {
+    "type": "note",
+    "pitch": "F3",
+    "step": "F",
+    "octave": 3,
+    "alter": 0,
+    "midi": 53,
+    "value": "eighth",
+    "ticks": 6
+   },
+   {
+    "type": "note",
+    "pitch": "D3",
+    "step": "D",
+    "octave": 3,
+    "alter": 0,
+    "midi": 50,
+    "value": "eighth",
+    "ticks": 6
+   }
+  ],
+  [
+   {
+    "type": "note",
+    "pitch": "C3",
+    "step": "C",
+    "octave": 3,
+    "alter": 0,
+    "midi": 48,
+    "value": "quarter",
+    "dots": 1,
+    "ticks": 18
+   }
+  ]
+ ],
+ "abc": "X:203\nT:Dictée 203\nM:3/8\nL:1/16\nK:C clef=bass\nC,4 G,2 | F,3E,D,2 | E,2D,2E,2 | D,6 | E,2D,2F,2 | G,4 C,2 | E,2F,2D,2 | C,6 |]\n",
+ "issues": []
+}

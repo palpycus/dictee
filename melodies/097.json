@@ -1,0 +1,133 @@
+{
+ "id": "97",
+ "number": 97,
+ "variant": null,
+ "page": 10,
+ "section": "Nouveautés – Les notes si♭ , ré",
+ "clef": "treble",
+ "keySignature": -1,
+ "key": "F",
+ "mode": "major",
+ "meter": "4/4",
+ "anacrusis": false,
+ "staves": 1,
+ "ticksPerQuarter": 12,
+ "measures": [
+  [
+   {
+    "type": "note",
+    "pitch": "F4",
+    "step": "F",
+    "octave": 4,
+    "alter": 0,
+    "midi": 65,
+    "value": "half",
+    "ticks": 24
+   },
+   {
+    "type": "note",
+    "pitch": "G4",
+    "step": "G",
+    "octave": 4,
+    "alter": 0,
+    "midi": 67,
+    "value": "quarter",
+    "ticks": 12
+   },
+   {
+    "type": "note",
+    "pitch": "A4",
+    "step": "A",
+    "octave": 4,
+    "alter": 0,
+    "midi": 69,
+    "value": "quarter",
+    "ticks": 12
+   }
+  ],
+  [
+   {
+    "type": "note",
+    "pitch": "Bb4",
+    "step": "B",
+    "octave": 4,
+    "alter": -1,
+    "midi": 70,
+    "value": "quarter",
+    "ticks": 12
+   },
+   {
+    "type": "note",
+    "pitch": "A4",
+    "step": "A",
+    "octave": 4,
+    "alter": 0,
+    "midi": 69,
+    "value": "quarter",
+    "ticks": 12
+   },
+   {
+    "type": "note",
+    "pitch": "Bb4",
+    "step": "B",
+    "octave": 4,
+    "alter": -1,
+    "midi": 70,
+    "value": "quarter",
+    "ticks": 12
+   },
+   {
+    "type": "note",
+    "pitch": "C5",
+    "step": "C",
+    "octave": 5,
+    "alter": 0,
+    "midi": 72,
+    "value": "quarter",
+    "ticks": 12
+   }
+  ],
+  [
+   {
+    "type": "note",
+    "pitch": "A4",
+    "step": "A",
+    "octave": 4,
+    "alter": 0,
+    "midi": 69,
+    "value": "half",
+    "ticks": 24
+   },
+   {
+    "type": "note",
+    "pitch": "G4",
+    "step": "G",
+    "octave": 4,
+    "alter": 0,
+    "midi": 67,
+    "value": "half",
+    "ticks": 24
+   }
+  ],
+  [
+   {
+    "type": "note",
+    "pitch": "F4",
+    "step": "F",
+    "octave": 4,
+    "alter": 0,
+    "midi": 65,
+    "value": "half",
+    "dots": 1,
+    "ticks": 36
+   },
+   {
+    "type": "rest",
+    "value": "quarter",
+    "ticks": 12
+   }
+  ]
+ ],
+ "abc": "X:97\nT:Dictée 97\nM:4/4\nL:1/16\nK:F\nF8 G4 A4 | B4 A4 B4 c4 | A8 G8 | F12 z4 |]\n",
+ "issues": []
+}

@@ -1,0 +1,218 @@
+{
+ "id": "234",
+ "number": 234,
+ "variant": null,
+ "page": 32,
+ "section": "Nouveauté – La tonalité de mi mineur",
+ "clef": "treble",
+ "keySignature": 1,
+ "key": "G",
+ "mode": "major",
+ "meter": "3/8",
+ "anacrusis": false,
+ "staves": 1,
+ "ticksPerQuarter": 12,
+ "measures": [
+  [
+   {
+    "type": "note",
+    "pitch": "G4",
+    "step": "G",
+    "octave": 4,
+    "alter": 0,
+    "midi": 67,
+    "value": "eighth",
+    "ticks": 6
+   },
+   {
+    "type": "note",
+    "pitch": "F#4",
+    "step": "F",
+    "octave": 4,
+    "alter": 1,
+    "midi": 66,
+    "value": "eighth",
+    "ticks": 6
+   },
+   {
+    "type": "note",
+    "pitch": "E4",
+    "step": "E",
+    "octave": 4,
+    "alter": 0,
+    "midi": 64,
+    "value": "eighth",
+    "ticks": 6
+   }
+  ],
+  [
+   {
+    "type": "note",
+    "pitch": "D4",
+    "step": "D",
+    "octave": 4,
+    "alter": 0,
+    "midi": 62,
+    "value": "quarter",
+    "ticks": 12
+   },
+   {
+    "type": "note",
+    "pitch": "G4",
+    "step": "G",
+    "octave": 4,
+    "alter": 0,
+    "midi": 67,
+    "value": "eighth",
+    "ticks": 6
+   }
+  ],
+  [
+   {
+    "type": "note",
+    "pitch": "B4",
+    "step": "B",
+    "octave": 4,
+    "alter": 0,
+    "midi": 71,
+    "value": "quarter",
+    "ticks": 12
+   },
+   {
+    "type": "note",
+    "pitch": "A4",
+    "step": "A",
+    "octave": 4,
+    "alter": 0,
+    "midi": 69,
+    "value": "eighth",
+    "ticks": 6
+   }
+  ],
+  [
+   {
+    "type": "note",
+    "pitch": "G4",
+    "step": "G",
+    "octave": 4,
+    "alter": 0,
+    "midi": 67,
+    "value": "quarter",
+    "dots": 1,
+    "ticks": 18
+   }
+  ],
+  [
+   {
+    "type": "note",
+    "pitch": "C5",
+    "step": "C",
+    "octave": 5,
+    "alter": 0,
+    "midi": 72,
+    "value": "eighth",
+    "ticks": 6
+   },
+   {
+    "type": "note",
+    "pitch": "B4",
+    "step": "B",
+    "octave": 4,
+    "alter": 0,
+    "midi": 71,
+    "value": "eighth",
+    "ticks": 6
+   },
+   {
+    "type": "note",
+    "pitch": "A4",
+    "step": "A",
+    "octave": 4,
+    "alter": 0,
+    "midi": 69,
+    "value": "eighth",
+    "ticks": 6
+   }
+  ],
+  [
+   {
+    "type": "note",
+    "pitch": "B4",
+    "step": "B",
+    "octave": 4,
+    "alter": 0,
+    "midi": 71,
+    "value": "eighth",
+    "ticks": 6
+   },
+   {
+    "type": "note",
+    "pitch": "D5",
+    "step": "D",
+    "octave": 5,
+    "alter": 0,
+    "midi": 74,
+    "value": "eighth",
+    "ticks": 6
+   },
+   {
+    "type": "note",
+    "pitch": "G4",
+    "step": "G",
+    "octave": 4,
+    "alter": 0,
+    "midi": 67,
+    "value": "eighth",
+    "ticks": 6
+   }
+  ],
+  [
+   {
+    "type": "note",
+    "pitch": "D4",
+    "step": "D",
+    "octave": 4,
+    "alter": 0,
+    "midi": 62,
+    "value": "eighth",
+    "dots": 1,
+    "ticks": 9
+   },
+   {
+    "type": "note",
+    "pitch": "E4",
+    "step": "E",
+    "octave": 4,
+    "alter": 0,
+    "midi": 64,
+    "value": "sixteenth",
+    "ticks": 3
+   },
+   {
+    "type": "note",
+    "pitch": "F#4",
+    "step": "F",
+    "octave": 4,
+    "alter": 1,
+    "midi": 66,
+    "value": "eighth",
+    "ticks": 6
+   }
+  ],
+  [
+   {
+    "type": "note",
+    "pitch": "G4",
+    "step": "G",
+    "octave": 4,
+    "alter": 0,
+    "midi": 67,
+    "value": "quarter",
+    "dots": 1,
+    "ticks": 18
+   }
+  ]
+ ],
+ "abc": "X:234\nT:Dictée 234\nM:3/8\nL:1/16\nK:G\nG2F2E2 | D4 G2 | B4 A2 | G6 | c2B2A2 | B2d2G2 | D3EF2 | G6 |]\n",
+ "issues": []
+}

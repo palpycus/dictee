@@ -1,0 +1,117 @@
+{
+ "id": "148b",
+ "number": 148,
+ "variant": "b",
+ "page": 16,
+ "section": "Nouveauté – La clé de fa",
+ "clef": "bass",
+ "keySignature": -1,
+ "key": "F",
+ "mode": "major",
+ "meter": "4/4",
+ "anacrusis": false,
+ "staves": 1,
+ "ticksPerQuarter": 12,
+ "measures": [
+  [
+   {
+    "type": "note",
+    "pitch": "C4",
+    "step": "C",
+    "octave": 4,
+    "alter": 0,
+    "midi": 60,
+    "value": "half",
+    "ticks": 24
+   },
+   {
+    "type": "note",
+    "pitch": "Bb3",
+    "step": "B",
+    "octave": 3,
+    "alter": -1,
+    "midi": 58,
+    "value": "half",
+    "ticks": 24
+   }
+  ],
+  [
+   {
+    "type": "note",
+    "pitch": "A3",
+    "step": "A",
+    "octave": 3,
+    "alter": 0,
+    "midi": 57,
+    "value": "half",
+    "ticks": 24
+   },
+   {
+    "type": "note",
+    "pitch": "A3",
+    "step": "A",
+    "octave": 3,
+    "alter": 0,
+    "midi": 57,
+    "value": "quarter",
+    "ticks": 12
+   },
+   {
+    "type": "note",
+    "pitch": "Bb3",
+    "step": "B",
+    "octave": 3,
+    "alter": -1,
+    "midi": 58,
+    "value": "quarter",
+    "ticks": 12
+   }
+  ],
+  [
+   {
+    "type": "note",
+    "pitch": "C4",
+    "step": "C",
+    "octave": 4,
+    "alter": 0,
+    "midi": 60,
+    "value": "half",
+    "ticks": 24
+   },
+   {
+    "type": "note",
+    "pitch": "D4",
+    "step": "D",
+    "octave": 4,
+    "alter": 0,
+    "midi": 62,
+    "value": "half",
+    "ticks": 24
+   }
+  ],
+  [
+   {
+    "type": "note",
+    "pitch": "C4",
+    "step": "C",
+    "octave": 4,
+    "alter": 0,
+    "midi": 60,
+    "value": "half",
+    "ticks": 24
+   },
+   {
+    "type": "note",
+    "pitch": "A3",
+    "step": "A",
+    "octave": 3,
+    "alter": 0,
+    "midi": 57,
+    "value": "half",
+    "ticks": 24
+   }
+  ]
+ ],
+ "abc": "X:148b\nT:Dictée 148 b)\nM:4/4\nL:1/16\nK:F clef=bass\nC8 B,8 | A,8 A,4 B,4 | C8 D8 | C8 A,8 |]\n",
+ "issues": []
+}

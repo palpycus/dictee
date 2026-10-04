@@ -1,0 +1,157 @@
+{
+ "id": "18",
+ "number": 18,
+ "variant": null,
+ "page": 2,
+ "section": "Nouveautés – La noire, le soupir",
+ "clef": "treble",
+ "keySignature": 0,
+ "key": "C",
+ "mode": "major",
+ "meter": "4/4",
+ "anacrusis": false,
+ "staves": 1,
+ "ticksPerQuarter": 12,
+ "measures": [
+  [
+   {
+    "type": "note",
+    "pitch": "C4",
+    "step": "C",
+    "octave": 4,
+    "alter": 0,
+    "midi": 60,
+    "value": "quarter",
+    "ticks": 12
+   },
+   {
+    "type": "rest",
+    "value": "quarter",
+    "ticks": 12
+   },
+   {
+    "type": "note",
+    "pitch": "D4",
+    "step": "D",
+    "octave": 4,
+    "alter": 0,
+    "midi": 62,
+    "value": "quarter",
+    "ticks": 12
+   },
+   {
+    "type": "rest",
+    "value": "quarter",
+    "ticks": 12
+   }
+  ],
+  [
+   {
+    "type": "note",
+    "pitch": "E4",
+    "step": "E",
+    "octave": 4,
+    "alter": 0,
+    "midi": 64,
+    "value": "quarter",
+    "ticks": 12
+   },
+   {
+    "type": "note",
+    "pitch": "D4",
+    "step": "D",
+    "octave": 4,
+    "alter": 0,
+    "midi": 62,
+    "value": "quarter",
+    "ticks": 12
+   },
+   {
+    "type": "note",
+    "pitch": "E4",
+    "step": "E",
+    "octave": 4,
+    "alter": 0,
+    "midi": 64,
+    "value": "quarter",
+    "ticks": 12
+   },
+   {
+    "type": "note",
+    "pitch": "F4",
+    "step": "F",
+    "octave": 4,
+    "alter": 0,
+    "midi": 65,
+    "value": "quarter",
+    "ticks": 12
+   }
+  ],
+  [
+   {
+    "type": "note",
+    "pitch": "G4",
+    "step": "G",
+    "octave": 4,
+    "alter": 0,
+    "midi": 67,
+    "value": "quarter",
+    "ticks": 12
+   },
+   {
+    "type": "note",
+    "pitch": "F4",
+    "step": "F",
+    "octave": 4,
+    "alter": 0,
+    "midi": 65,
+    "value": "quarter",
+    "ticks": 12
+   },
+   {
+    "type": "note",
+    "pitch": "E4",
+    "step": "E",
+    "octave": 4,
+    "alter": 0,
+    "midi": 64,
+    "value": "quarter",
+    "ticks": 12
+   },
+   {
+    "type": "note",
+    "pitch": "D4",
+    "step": "D",
+    "octave": 4,
+    "alter": 0,
+    "midi": 62,
+    "value": "quarter",
+    "ticks": 12
+   }
+  ],
+  [
+   {
+    "type": "note",
+    "pitch": "C4",
+    "step": "C",
+    "octave": 4,
+    "alter": 0,
+    "midi": 60,
+    "value": "half",
+    "ticks": 24
+   },
+   {
+    "type": "note",
+    "pitch": "C4",
+    "step": "C",
+    "octave": 4,
+    "alter": 0,
+    "midi": 60,
+    "value": "half",
+    "ticks": 24
+   }
+  ]
+ ],
+ "abc": "X:18\nT:Dictée 18\nM:4/4\nL:1/16\nK:C\nC4 z4 D4 z4 | E4 D4 E4 F4 | G4 F4 E4 D4 | C8 C8 |]\n",
+ "issues": []
+}

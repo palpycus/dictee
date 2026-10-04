@@ -1,0 +1,177 @@
+{
+ "id": "268",
+ "number": 268,
+ "variant": null,
+ "page": 39,
+ "section": "Nouveauté – La septième mineure descendante",
+ "clef": "bass",
+ "keySignature": -1,
+ "key": "F",
+ "mode": "major",
+ "meter": "4/4",
+ "anacrusis": false,
+ "staves": 1,
+ "ticksPerQuarter": 12,
+ "measures": [
+  [
+   {
+    "type": "note",
+    "pitch": "F3",
+    "step": "F",
+    "octave": 3,
+    "alter": 0,
+    "midi": 53,
+    "value": "quarter",
+    "ticks": 12
+   },
+   {
+    "type": "note",
+    "pitch": "G3",
+    "step": "G",
+    "octave": 3,
+    "alter": 0,
+    "midi": 55,
+    "value": "quarter",
+    "ticks": 12
+   },
+   {
+    "type": "note",
+    "pitch": "A3",
+    "step": "A",
+    "octave": 3,
+    "alter": 0,
+    "midi": 57,
+    "value": "quarter",
+    "ticks": 12
+   },
+   {
+    "type": "note",
+    "pitch": "F3",
+    "step": "F",
+    "octave": 3,
+    "alter": 0,
+    "midi": 53,
+    "value": "quarter",
+    "ticks": 12
+   }
+  ],
+  [
+   {
+    "type": "note",
+    "pitch": "E3",
+    "step": "E",
+    "octave": 3,
+    "alter": 0,
+    "midi": 52,
+    "value": "quarter",
+    "ticks": 12
+   },
+   {
+    "type": "note",
+    "pitch": "F3",
+    "step": "F",
+    "octave": 3,
+    "alter": 0,
+    "midi": 53,
+    "value": "quarter",
+    "ticks": 12
+   },
+   {
+    "type": "note",
+    "pitch": "G3",
+    "step": "G",
+    "octave": 3,
+    "alter": 0,
+    "midi": 55,
+    "value": "quarter",
+    "ticks": 12
+   },
+   {
+    "type": "note",
+    "pitch": "C3",
+    "step": "C",
+    "octave": 3,
+    "alter": 0,
+    "midi": 48,
+    "value": "quarter",
+    "ticks": 12
+   }
+  ],
+  [
+   {
+    "type": "note",
+    "pitch": "G3",
+    "step": "G",
+    "octave": 3,
+    "alter": 0,
+    "midi": 55,
+    "value": "quarter",
+    "ticks": 12
+   },
+   {
+    "type": "note",
+    "pitch": "A3",
+    "step": "A",
+    "octave": 3,
+    "alter": 0,
+    "midi": 57,
+    "value": "quarter",
+    "ticks": 12
+   },
+   {
+    "type": "note",
+    "pitch": "Bb3",
+    "step": "B",
+    "octave": 3,
+    "alter": -1,
+    "midi": 58,
+    "value": "quarter",
+    "ticks": 12
+   },
+   {
+    "type": "note",
+    "pitch": "C3",
+    "step": "C",
+    "octave": 3,
+    "alter": 0,
+    "midi": 48,
+    "value": "quarter",
+    "ticks": 12
+   }
+  ],
+  [
+   {
+    "type": "note",
+    "pitch": "A3",
+    "step": "A",
+    "octave": 3,
+    "alter": 0,
+    "midi": 57,
+    "value": "quarter",
+    "ticks": 12
+   },
+   {
+    "type": "note",
+    "pitch": "G3",
+    "step": "G",
+    "octave": 3,
+    "alter": 0,
+    "midi": 55,
+    "value": "quarter",
+    "ticks": 12
+   },
+   {
+    "type": "note",
+    "pitch": "F3",
+    "step": "F",
+    "octave": 3,
+    "alter": 0,
+    "midi": 53,
+    "value": "half",
+    "ticks": 24
+   }
+  ]
+ ],
+ "abc": "X:268\nT:Dictée 268\nM:4/4\nL:1/16\nK:F clef=bass\nF,4 G,4 A,4 F,4 | E,4 F,4 G,4 C,4 | G,4 A,4 B,4 C,4 | A,4 G,4 F,8 |]\n",
+ "issues": []
+}

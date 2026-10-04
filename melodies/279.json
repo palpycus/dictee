@@ -1,0 +1,507 @@
+{
+ "id": "279",
+ "number": 279,
+ "variant": null,
+ "page": 41,
+ "section": "Nouveautés – L'intervalle de septième majeure, la tonalité de si mineur",
+ "clef": "bass",
+ "keySignature": 2,
+ "key": "Bm",
+ "mode": "minor",
+ "meter": "9/8",
+ "anacrusis": false,
+ "staves": 2,
+ "ticksPerQuarter": 12,
+ "measures": [
+  [
+   {
+    "type": "note",
+    "pitch": "B2",
+    "step": "B",
+    "octave": 2,
+    "alter": 0,
+    "midi": 47,
+    "value": "eighth",
+    "ticks": 6
+   },
+   {
+    "type": "note",
+    "pitch": "C#3",
+    "step": "C",
+    "octave": 3,
+    "alter": 1,
+    "midi": 49,
+    "value": "eighth",
+    "ticks": 6
+   },
+   {
+    "type": "note",
+    "pitch": "D3",
+    "step": "D",
+    "octave": 3,
+    "alter": 0,
+    "midi": 50,
+    "value": "eighth",
+    "ticks": 6
+   },
+   {
+    "type": "note",
+    "pitch": "E3",
+    "step": "E",
+    "octave": 3,
+    "alter": 0,
+    "midi": 52,
+    "value": "eighth",
+    "ticks": 6
+   },
+   {
+    "type": "note",
+    "pitch": "D3",
+    "step": "D",
+    "octave": 3,
+    "alter": 0,
+    "midi": 50,
+    "value": "eighth",
+    "ticks": 6
+   },
+   {
+    "type": "note",
+    "pitch": "E3",
+    "step": "E",
+    "octave": 3,
+    "alter": 0,
+    "midi": 52,
+    "value": "eighth",
+    "ticks": 6
+   },
+   {
+    "type": "note",
+    "pitch": "F#3",
+    "step": "F",
+    "octave": 3,
+    "alter": 1,
+    "midi": 54,
+    "value": "eighth",
+    "ticks": 6
+   },
+   {
+    "type": "note",
+    "pitch": "E3",
+    "step": "E",
+    "octave": 3,
+    "alter": 0,
+    "midi": 52,
+    "value": "eighth",
+    "ticks": 6
+   },
+   {
+    "type": "note",
+    "pitch": "F#3",
+    "step": "F",
+    "octave": 3,
+    "alter": 1,
+    "midi": 54,
+    "value": "eighth",
+    "ticks": 6
+   }
+  ],
+  [
+   {
+    "type": "note",
+    "pitch": "G3",
+    "step": "G",
+    "octave": 3,
+    "alter": 0,
+    "midi": 55,
+    "value": "eighth",
+    "ticks": 6
+   },
+   {
+    "type": "note",
+    "pitch": "F#3",
+    "step": "F",
+    "octave": 3,
+    "alter": 1,
+    "midi": 54,
+    "value": "eighth",
+    "ticks": 6
+   },
+   {
+    "type": "note",
+    "pitch": "E3",
+    "step": "E",
+    "octave": 3,
+    "alter": 0,
+    "midi": 52,
+    "value": "eighth",
+    "ticks": 6
+   },
+   {
+    "type": "note",
+    "pitch": "F#3",
+    "step": "F",
+    "octave": 3,
+    "alter": 1,
+    "midi": 54,
+    "value": "eighth",
+    "ticks": 6
+   },
+   {
+    "type": "note",
+    "pitch": "E3",
+    "step": "E",
+    "octave": 3,
+    "alter": 0,
+    "midi": 52,
+    "value": "eighth",
+    "ticks": 6
+   },
+   {
+    "type": "note",
+    "pitch": "D3",
+    "step": "D",
+    "octave": 3,
+    "alter": 0,
+    "midi": 50,
+    "value": "eighth",
+    "ticks": 6
+   },
+   {
+    "type": "note",
+    "pitch": "E3",
+    "step": "E",
+    "octave": 3,
+    "alter": 0,
+    "midi": 52,
+    "value": "eighth",
+    "ticks": 6
+   },
+   {
+    "type": "note",
+    "pitch": "D3",
+    "step": "D",
+    "octave": 3,
+    "alter": 0,
+    "midi": 50,
+    "value": "eighth",
+    "ticks": 6
+   },
+   {
+    "type": "note",
+    "pitch": "C#3",
+    "step": "C",
+    "octave": 3,
+    "alter": 1,
+    "midi": 49,
+    "value": "eighth",
+    "ticks": 6
+   }
+  ],
+  [
+   {
+    "type": "note",
+    "pitch": "D3",
+    "step": "D",
+    "octave": 3,
+    "alter": 0,
+    "midi": 50,
+    "value": "eighth",
+    "ticks": 6
+   },
+   {
+    "type": "note",
+    "pitch": "E3",
+    "step": "E",
+    "octave": 3,
+    "alter": 0,
+    "midi": 52,
+    "value": "eighth",
+    "ticks": 6
+   },
+   {
+    "type": "note",
+    "pitch": "F#3",
+    "step": "F",
+    "octave": 3,
+    "alter": 1,
+    "midi": 54,
+    "value": "eighth",
+    "ticks": 6
+   },
+   {
+    "type": "note",
+    "pitch": "G#3",
+    "step": "G",
+    "octave": 3,
+    "alter": 1,
+    "midi": 56,
+    "accidental": "sharp",
+    "value": "eighth",
+    "ticks": 6
+   },
+   {
+    "type": "note",
+    "pitch": "A#3",
+    "step": "A",
+    "octave": 3,
+    "alter": 1,
+    "midi": 58,
+    "accidental": "sharp",
+    "value": "eighth",
+    "ticks": 6
+   },
+   {
+    "type": "note",
+    "pitch": "B3",
+    "step": "B",
+    "octave": 3,
+    "alter": 0,
+    "midi": 59,
+    "value": "eighth",
+    "ticks": 6
+   },
+   {
+    "type": "note",
+    "pitch": "C#4",
+    "step": "C",
+    "octave": 4,
+    "alter": 1,
+    "midi": 61,
+    "value": "eighth",
+    "ticks": 6
+   },
+   {
+    "type": "note",
+    "pitch": "B3",
+    "step": "B",
+    "octave": 3,
+    "alter": 0,
+    "midi": 59,
+    "value": "eighth",
+    "ticks": 6
+   },
+   {
+    "type": "note",
+    "pitch": "A#3",
+    "step": "A",
+    "octave": 3,
+    "alter": 1,
+    "midi": 58,
+    "value": "eighth",
+    "ticks": 6
+   }
+  ],
+  [
+   {
+    "type": "note",
+    "pitch": "B3",
+    "step": "B",
+    "octave": 3,
+    "alter": 0,
+    "midi": 59,
+    "value": "eighth",
+    "ticks": 6
+   },
+   {
+    "type": "note",
+    "pitch": "D4",
+    "step": "D",
+    "octave": 4,
+    "alter": 0,
+    "midi": 62,
+    "value": "eighth",
+    "ticks": 6
+   },
+   {
+    "type": "note",
+    "pitch": "B3",
+    "step": "B",
+    "octave": 3,
+    "alter": 0,
+    "midi": 59,
+    "value": "eighth",
+    "ticks": 6
+   },
+   {
+    "type": "note",
+    "pitch": "F#3",
+    "step": "F",
+    "octave": 3,
+    "alter": 1,
+    "midi": 54,
+    "value": "eighth",
+    "ticks": 6
+   },
+   {
+    "type": "note",
+    "pitch": "B3",
+    "step": "B",
+    "octave": 3,
+    "alter": 0,
+    "midi": 59,
+    "value": "eighth",
+    "ticks": 6
+   },
+   {
+    "type": "note",
+    "pitch": "F#3",
+    "step": "F",
+    "octave": 3,
+    "alter": 1,
+    "midi": 54,
+    "value": "eighth",
+    "ticks": 6
+   },
+   {
+    "type": "note",
+    "pitch": "D3",
+    "step": "D",
+    "octave": 3,
+    "alter": 0,
+    "midi": 50,
+    "value": "eighth",
+    "ticks": 6
+   },
+   {
+    "type": "note",
+    "pitch": "F#3",
+    "step": "F",
+    "octave": 3,
+    "alter": 1,
+    "midi": 54,
+    "value": "eighth",
+    "ticks": 6
+   },
+   {
+    "type": "note",
+    "pitch": "C#3",
+    "step": "C",
+    "octave": 3,
+    "alter": 1,
+    "midi": 49,
+    "value": "eighth",
+    "ticks": 6
+   }
+  ],
+  [
+   {
+    "type": "note",
+    "pitch": "B2",
+    "step": "B",
+    "octave": 2,
+    "alter": 0,
+    "midi": 47,
+    "value": "eighth",
+    "ticks": 6
+   },
+   {
+    "type": "note",
+    "pitch": "C#3",
+    "step": "C",
+    "octave": 3,
+    "alter": 1,
+    "midi": 49,
+    "value": "eighth",
+    "ticks": 6
+   },
+   {
+    "type": "note",
+    "pitch": "D3",
+    "step": "D",
+    "octave": 3,
+    "alter": 0,
+    "midi": 50,
+    "value": "eighth",
+    "ticks": 6
+   },
+   {
+    "type": "note",
+    "pitch": "E3",
+    "step": "E",
+    "octave": 3,
+    "alter": 0,
+    "midi": 52,
+    "value": "eighth",
+    "ticks": 6
+   },
+   {
+    "type": "note",
+    "pitch": "D3",
+    "step": "D",
+    "octave": 3,
+    "alter": 0,
+    "midi": 50,
+    "value": "eighth",
+    "ticks": 6
+   },
+   {
+    "type": "note",
+    "pitch": "C#3",
+    "step": "C",
+    "octave": 3,
+    "alter": 1,
+    "midi": 49,
+    "value": "eighth",
+    "ticks": 6
+   },
+   {
+    "type": "note",
+    "pitch": "B2",
+    "step": "B",
+    "octave": 2,
+    "alter": 0,
+    "midi": 47,
+    "value": "eighth",
+    "ticks": 6
+   },
+   {
+    "type": "note",
+    "pitch": "C#3",
+    "step": "C",
+    "octave": 3,
+    "alter": 1,
+    "midi": 49,
+    "value": "eighth",
+    "ticks": 6
+   },
+   {
+    "type": "note",
+    "pitch": "A#2",
+    "step": "A",
+    "octave": 2,
+    "alter": 1,
+    "midi": 46,
+    "accidental": "sharp",
+    "value": "eighth",
+    "ticks": 6
+   }
+  ],
+  [
+   {
+    "type": "note",
+    "pitch": "B2",
+    "step": "B",
+    "octave": 2,
+    "alter": 0,
+    "midi": 47,
+    "tie": true,
+    "value": "half",
+    "dots": 1,
+    "ticks": 36
+   },
+   {
+    "type": "note",
+    "pitch": "B2",
+    "step": "B",
+    "octave": 2,
+    "alter": 0,
+    "midi": 47,
+    "value": "quarter",
+    "dots": 1,
+    "ticks": 18
+   }
+  ]
+ ],
+ "abc": "X:279\nT:Dictée 279\nM:9/8\nL:1/16\nK:Bm clef=bass\nB,,2C,2D,2 E,2D,2E,2 F,2E,2F,2 | G,2F,2E,2 F,2E,2D,2 E,2D,2C,2 | D,2E,2F,2 ^G,2^A,2B,2 C2B,2A,2 | B,2D2B,2 F,2B,2F,2 D,2F,2C,2 | B,,2C,2D,2 E,2D,2C,2 B,,2C,2^A,,2 | B,,12- B,,6 |]\n",
+ "issues": []
+}

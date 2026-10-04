@@ -1,0 +1,286 @@
+{
+ "id": "258",
+ "number": 258,
+ "variant": null,
+ "page": 37,
+ "section": "Nouveauté – La tonalité de sol mineur",
+ "clef": "bass",
+ "keySignature": -2,
+ "key": "Gm",
+ "mode": "minor",
+ "meter": "2/4",
+ "anacrusis": false,
+ "staves": 2,
+ "ticksPerQuarter": 12,
+ "measures": [
+  [
+   {
+    "type": "note",
+    "pitch": "G3",
+    "step": "G",
+    "octave": 3,
+    "alter": 0,
+    "midi": 55,
+    "value": "quarter",
+    "ticks": 12
+   },
+   {
+    "type": "note",
+    "pitch": "D3",
+    "step": "D",
+    "octave": 3,
+    "alter": 0,
+    "midi": 50,
+    "value": "quarter",
+    "ticks": 12
+   }
+  ],
+  [
+   {
+    "type": "note",
+    "pitch": "G3",
+    "step": "G",
+    "octave": 3,
+    "alter": 0,
+    "midi": 55,
+    "value": "quarter",
+    "ticks": 12
+   },
+   {
+    "type": "note",
+    "pitch": "D3",
+    "step": "D",
+    "octave": 3,
+    "alter": 0,
+    "midi": 50,
+    "value": "eighth",
+    "tuplet": 3,
+    "ticks": 4
+   },
+   {
+    "type": "note",
+    "pitch": "E3",
+    "step": "E",
+    "octave": 3,
+    "alter": 0,
+    "midi": 52,
+    "accidental": "natural",
+    "value": "eighth",
+    "tuplet": 3,
+    "ticks": 4
+   },
+   {
+    "type": "note",
+    "pitch": "F#3",
+    "step": "F",
+    "octave": 3,
+    "alter": 1,
+    "midi": 54,
+    "accidental": "sharp",
+    "value": "eighth",
+    "tuplet": 3,
+    "ticks": 4
+   }
+  ],
+  [
+   {
+    "type": "note",
+    "pitch": "G3",
+    "step": "G",
+    "octave": 3,
+    "alter": 0,
+    "midi": 55,
+    "value": "quarter",
+    "ticks": 12
+   },
+   {
+    "type": "note",
+    "pitch": "D3",
+    "step": "D",
+    "octave": 3,
+    "alter": 0,
+    "midi": 50,
+    "value": "quarter",
+    "ticks": 12
+   }
+  ],
+  [
+   {
+    "type": "note",
+    "pitch": "Bb2",
+    "step": "B",
+    "octave": 2,
+    "alter": -1,
+    "midi": 46,
+    "value": "eighth",
+    "ticks": 6
+   },
+   {
+    "type": "note",
+    "pitch": "A2",
+    "step": "A",
+    "octave": 2,
+    "alter": 0,
+    "midi": 45,
+    "value": "eighth",
+    "ticks": 6
+   },
+   {
+    "type": "note",
+    "pitch": "G2",
+    "step": "G",
+    "octave": 2,
+    "alter": 0,
+    "midi": 43,
+    "value": "quarter",
+    "ticks": 12
+   }
+  ],
+  [
+   {
+    "type": "note",
+    "pitch": "C3",
+    "step": "C",
+    "octave": 3,
+    "alter": 0,
+    "midi": 48,
+    "value": "quarter",
+    "ticks": 12
+   },
+   {
+    "type": "note",
+    "pitch": "D3",
+    "step": "D",
+    "octave": 3,
+    "alter": 0,
+    "midi": 50,
+    "value": "eighth",
+    "ticks": 6
+   },
+   {
+    "type": "note",
+    "pitch": "Eb3",
+    "step": "E",
+    "octave": 3,
+    "alter": -1,
+    "midi": 51,
+    "value": "eighth",
+    "ticks": 6
+   }
+  ],
+  [
+   {
+    "type": "note",
+    "pitch": "D3",
+    "step": "D",
+    "octave": 3,
+    "alter": 0,
+    "midi": 50,
+    "value": "quarter",
+    "ticks": 12
+   },
+   {
+    "type": "note",
+    "pitch": "Bb2",
+    "step": "B",
+    "octave": 2,
+    "alter": -1,
+    "midi": 46,
+    "value": "eighth",
+    "tuplet": 3,
+    "ticks": 4
+   },
+   {
+    "type": "note",
+    "pitch": "C3",
+    "step": "C",
+    "octave": 3,
+    "alter": 0,
+    "midi": 48,
+    "value": "eighth",
+    "tuplet": 3,
+    "ticks": 4
+   },
+   {
+    "type": "note",
+    "pitch": "D3",
+    "step": "D",
+    "octave": 3,
+    "alter": 0,
+    "midi": 50,
+    "value": "eighth",
+    "tuplet": 3,
+    "ticks": 4
+   }
+  ],
+  [
+   {
+    "type": "note",
+    "pitch": "C3",
+    "step": "C",
+    "octave": 3,
+    "alter": 0,
+    "midi": 48,
+    "value": "quarter",
+    "ticks": 12
+   },
+   {
+    "type": "note",
+    "pitch": "Bb2",
+    "step": "B",
+    "octave": 2,
+    "alter": -1,
+    "midi": 46,
+    "value": "eighth",
+    "tuplet": 3,
+    "ticks": 4
+   },
+   {
+    "type": "note",
+    "pitch": "C3",
+    "step": "C",
+    "octave": 3,
+    "alter": 0,
+    "midi": 48,
+    "value": "eighth",
+    "tuplet": 3,
+    "ticks": 4
+   },
+   {
+    "type": "note",
+    "pitch": "D3",
+    "step": "D",
+    "octave": 3,
+    "alter": 0,
+    "midi": 50,
+    "value": "eighth",
+    "tuplet": 3,
+    "ticks": 4
+   }
+  ],
+  [
+   {
+    "type": "note",
+    "pitch": "Bb2",
+    "step": "B",
+    "octave": 2,
+    "alter": -1,
+    "midi": 46,
+    "value": "quarter",
+    "ticks": 12
+   },
+   {
+    "type": "note",
+    "pitch": "G2",
+    "step": "G",
+    "octave": 2,
+    "alter": 0,
+    "midi": 43,
+    "value": "quarter",
+    "ticks": 12
+   }
+  ]
+ ],
+ "abc": "X:258\nT:Dictée 258\nM:2/4\nL:1/16\nK:Gm clef=bass\nG,4 D,4 | G,4 (3D,2=E,2^F,2 | G,4 D,4 | B,,2A,,2 G,,4 | C,4 D,2E,2 | D,4 (3B,,2C,2D,2 | C,4 (3B,,2C,2D,2 | B,,4 G,,4 |]\n",
+ "issues": []
+}

@@ -1,0 +1,248 @@
+{
+ "id": "266",
+ "number": 266,
+ "variant": null,
+ "page": 39,
+ "section": "Nouveauté – La septième mineure descendante",
+ "clef": "bass",
+ "keySignature": -1,
+ "key": "Dm",
+ "mode": "minor",
+ "meter": "3/4",
+ "anacrusis": false,
+ "staves": 2,
+ "ticksPerQuarter": 12,
+ "measures": [
+  [
+   {
+    "type": "note",
+    "pitch": "D3",
+    "step": "D",
+    "octave": 3,
+    "alter": 0,
+    "midi": 50,
+    "value": "quarter",
+    "ticks": 12
+   },
+   {
+    "type": "note",
+    "pitch": "E3",
+    "step": "E",
+    "octave": 3,
+    "alter": 0,
+    "midi": 52,
+    "value": "quarter",
+    "ticks": 12
+   },
+   {
+    "type": "note",
+    "pitch": "F3",
+    "step": "F",
+    "octave": 3,
+    "alter": 0,
+    "midi": 53,
+    "value": "quarter",
+    "ticks": 12
+   }
+  ],
+  [
+   {
+    "type": "note",
+    "pitch": "G3",
+    "step": "G",
+    "octave": 3,
+    "alter": 0,
+    "midi": 55,
+    "value": "quarter",
+    "ticks": 12
+   },
+   {
+    "type": "note",
+    "pitch": "F3",
+    "step": "F",
+    "octave": 3,
+    "alter": 0,
+    "midi": 53,
+    "value": "quarter",
+    "ticks": 12
+   },
+   {
+    "type": "note",
+    "pitch": "E3",
+    "step": "E",
+    "octave": 3,
+    "alter": 0,
+    "midi": 52,
+    "value": "quarter",
+    "ticks": 12
+   }
+  ],
+  [
+   {
+    "type": "note",
+    "pitch": "F3",
+    "step": "F",
+    "octave": 3,
+    "alter": 0,
+    "midi": 53,
+    "value": "quarter",
+    "ticks": 12
+   },
+   {
+    "type": "note",
+    "pitch": "E3",
+    "step": "E",
+    "octave": 3,
+    "alter": 0,
+    "midi": 52,
+    "value": "quarter",
+    "ticks": 12
+   },
+   {
+    "type": "note",
+    "pitch": "D3",
+    "step": "D",
+    "octave": 3,
+    "alter": 0,
+    "midi": 50,
+    "value": "quarter",
+    "ticks": 12
+   }
+  ],
+  [
+   {
+    "type": "note",
+    "pitch": "E3",
+    "step": "E",
+    "octave": 3,
+    "alter": 0,
+    "midi": 52,
+    "value": "half",
+    "ticks": 24
+   },
+   {
+    "type": "note",
+    "pitch": "A2",
+    "step": "A",
+    "octave": 2,
+    "alter": 0,
+    "midi": 45,
+    "value": "quarter",
+    "ticks": 12
+   }
+  ],
+  [
+   {
+    "type": "note",
+    "pitch": "E3",
+    "step": "E",
+    "octave": 3,
+    "alter": 0,
+    "midi": 52,
+    "value": "quarter",
+    "ticks": 12
+   },
+   {
+    "type": "note",
+    "pitch": "G3",
+    "step": "G",
+    "octave": 3,
+    "alter": 0,
+    "midi": 55,
+    "value": "quarter",
+    "ticks": 12
+   },
+   {
+    "type": "note",
+    "pitch": "A2",
+    "step": "A",
+    "octave": 2,
+    "alter": 0,
+    "midi": 45,
+    "value": "quarter",
+    "ticks": 12
+   }
+  ],
+  [
+   {
+    "type": "note",
+    "pitch": "F3",
+    "step": "F",
+    "octave": 3,
+    "alter": 0,
+    "midi": 53,
+    "value": "quarter",
+    "dots": 1,
+    "ticks": 18
+   },
+   {
+    "type": "note",
+    "pitch": "E3",
+    "step": "E",
+    "octave": 3,
+    "alter": 0,
+    "midi": 52,
+    "value": "eighth",
+    "ticks": 6
+   },
+   {
+    "type": "note",
+    "pitch": "C#3",
+    "step": "C",
+    "octave": 3,
+    "alter": 1,
+    "midi": 49,
+    "accidental": "sharp",
+    "value": "quarter",
+    "ticks": 12
+   }
+  ],
+  [
+   {
+    "type": "note",
+    "pitch": "D3",
+    "step": "D",
+    "octave": 3,
+    "alter": 0,
+    "midi": 50,
+    "value": "quarter",
+    "ticks": 12
+   },
+   {
+    "type": "note",
+    "pitch": "A2",
+    "step": "A",
+    "octave": 2,
+    "alter": 0,
+    "midi": 45,
+    "value": "quarter",
+    "ticks": 12
+   },
+   {
+    "type": "note",
+    "pitch": "E3",
+    "step": "E",
+    "octave": 3,
+    "alter": 0,
+    "midi": 52,
+    "value": "quarter",
+    "ticks": 12
+   }
+  ],
+  [
+   {
+    "type": "note",
+    "pitch": "D3",
+    "step": "D",
+    "octave": 3,
+    "alter": 0,
+    "midi": 50,
+    "value": "half",
+    "dots": 1,
+    "ticks": 36
+   }
+  ]
+ ],
+ "abc": "X:266\nT:Dictée 266\nM:3/4\nL:1/16\nK:Dm clef=bass\nD,4 E,4 F,4 | G,4 F,4 E,4 | F,4 E,4 D,4 | E,8 A,,4 | E,4 G,4 A,,4 | F,6 E,2 ^C,4 | D,4 A,,4 E,4 | D,12 |]\n",
+ "issues": []
+}

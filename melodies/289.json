@@ -1,0 +1,402 @@
+{
+ "id": "289",
+ "number": 289,
+ "variant": null,
+ "page": 43,
+ "section": "Nouveautés – Les tonalités de fa mineur, la majeur et fa mineur, le triton (#288)",
+ "clef": "treble",
+ "keySignature": -4,
+ "key": "Ab",
+ "mode": "major",
+ "meter": "9/8",
+ "anacrusis": false,
+ "staves": 2,
+ "ticksPerQuarter": 12,
+ "measures": [
+  [
+   {
+    "type": "note",
+    "pitch": "Ab4",
+    "step": "A",
+    "octave": 4,
+    "alter": -1,
+    "midi": 68,
+    "value": "eighth",
+    "ticks": 6
+   },
+   {
+    "type": "note",
+    "pitch": "C5",
+    "step": "C",
+    "octave": 5,
+    "alter": 0,
+    "midi": 72,
+    "value": "eighth",
+    "ticks": 6
+   },
+   {
+    "type": "note",
+    "pitch": "Bb4",
+    "step": "B",
+    "octave": 4,
+    "alter": -1,
+    "midi": 70,
+    "value": "eighth",
+    "ticks": 6
+   },
+   {
+    "type": "note",
+    "pitch": "Ab4",
+    "step": "A",
+    "octave": 4,
+    "alter": -1,
+    "midi": 68,
+    "value": "eighth",
+    "ticks": 6
+   },
+   {
+    "type": "note",
+    "pitch": "Eb4",
+    "step": "E",
+    "octave": 4,
+    "alter": -1,
+    "midi": 63,
+    "value": "eighth",
+    "ticks": 6
+   },
+   {
+    "type": "note",
+    "pitch": "Ab4",
+    "step": "A",
+    "octave": 4,
+    "alter": -1,
+    "midi": 68,
+    "value": "eighth",
+    "ticks": 6
+   },
+   {
+    "type": "note",
+    "pitch": "C5",
+    "step": "C",
+    "octave": 5,
+    "alter": 0,
+    "midi": 72,
+    "value": "eighth",
+    "ticks": 6
+   },
+   {
+    "type": "note",
+    "pitch": "Bb4",
+    "step": "B",
+    "octave": 4,
+    "alter": -1,
+    "midi": 70,
+    "value": "eighth",
+    "ticks": 6
+   },
+   {
+    "type": "note",
+    "pitch": "C5",
+    "step": "C",
+    "octave": 5,
+    "alter": 0,
+    "midi": 72,
+    "value": "eighth",
+    "ticks": 6
+   }
+  ],
+  [
+   {
+    "type": "note",
+    "pitch": "Ab4",
+    "step": "A",
+    "octave": 4,
+    "alter": -1,
+    "midi": 68,
+    "value": "eighth",
+    "ticks": 6
+   },
+   {
+    "type": "note",
+    "pitch": "Db5",
+    "step": "D",
+    "octave": 5,
+    "alter": -1,
+    "midi": 73,
+    "value": "eighth",
+    "ticks": 6
+   },
+   {
+    "type": "note",
+    "pitch": "C5",
+    "step": "C",
+    "octave": 5,
+    "alter": 0,
+    "midi": 72,
+    "value": "eighth",
+    "ticks": 6
+   },
+   {
+    "type": "note",
+    "pitch": "Bb4",
+    "step": "B",
+    "octave": 4,
+    "alter": -1,
+    "midi": 70,
+    "value": "eighth",
+    "ticks": 6
+   },
+   {
+    "type": "note",
+    "pitch": "Eb4",
+    "step": "E",
+    "octave": 4,
+    "alter": -1,
+    "midi": 63,
+    "value": "eighth",
+    "ticks": 6
+   },
+   {
+    "type": "note",
+    "pitch": "Bb4",
+    "step": "B",
+    "octave": 4,
+    "alter": -1,
+    "midi": 70,
+    "value": "eighth",
+    "ticks": 6
+   },
+   {
+    "type": "note",
+    "pitch": "Db5",
+    "step": "D",
+    "octave": 5,
+    "alter": -1,
+    "midi": 73,
+    "value": "eighth",
+    "ticks": 6
+   },
+   {
+    "type": "note",
+    "pitch": "C5",
+    "step": "C",
+    "octave": 5,
+    "alter": 0,
+    "midi": 72,
+    "value": "eighth",
+    "ticks": 6
+   },
+   {
+    "type": "note",
+    "pitch": "Bb4",
+    "step": "B",
+    "octave": 4,
+    "alter": -1,
+    "midi": 70,
+    "value": "eighth",
+    "ticks": 6
+   }
+  ],
+  [
+   {
+    "type": "note",
+    "pitch": "C5",
+    "step": "C",
+    "octave": 5,
+    "alter": 0,
+    "midi": 72,
+    "value": "eighth",
+    "ticks": 6
+   },
+   {
+    "type": "note",
+    "pitch": "Eb4",
+    "step": "E",
+    "octave": 4,
+    "alter": -1,
+    "midi": 63,
+    "value": "eighth",
+    "ticks": 6
+   },
+   {
+    "type": "note",
+    "pitch": "Ab4",
+    "step": "A",
+    "octave": 4,
+    "alter": -1,
+    "midi": 68,
+    "value": "eighth",
+    "ticks": 6
+   },
+   {
+    "type": "note",
+    "pitch": "Db5",
+    "step": "D",
+    "octave": 5,
+    "alter": -1,
+    "midi": 73,
+    "value": "eighth",
+    "ticks": 6
+   },
+   {
+    "type": "note",
+    "pitch": "F4",
+    "step": "F",
+    "octave": 4,
+    "alter": 0,
+    "midi": 65,
+    "value": "eighth",
+    "ticks": 6
+   },
+   {
+    "type": "note",
+    "pitch": "Ab4",
+    "step": "A",
+    "octave": 4,
+    "alter": -1,
+    "midi": 68,
+    "value": "eighth",
+    "ticks": 6
+   },
+   {
+    "type": "note",
+    "pitch": "G4",
+    "step": "G",
+    "octave": 4,
+    "alter": 0,
+    "midi": 67,
+    "value": "eighth",
+    "ticks": 6
+   },
+   {
+    "type": "note",
+    "pitch": "Eb5",
+    "step": "E",
+    "octave": 5,
+    "alter": -1,
+    "midi": 75,
+    "value": "eighth",
+    "ticks": 6
+   },
+   {
+    "type": "note",
+    "pitch": "Db5",
+    "step": "D",
+    "octave": 5,
+    "alter": -1,
+    "midi": 73,
+    "value": "eighth",
+    "ticks": 6
+   }
+  ],
+  [
+   {
+    "type": "note",
+    "pitch": "C5",
+    "step": "C",
+    "octave": 5,
+    "alter": 0,
+    "midi": 72,
+    "value": "eighth",
+    "ticks": 6
+   },
+   {
+    "type": "note",
+    "pitch": "Eb5",
+    "step": "E",
+    "octave": 5,
+    "alter": -1,
+    "midi": 75,
+    "value": "eighth",
+    "ticks": 6
+   },
+   {
+    "type": "note",
+    "pitch": "C5",
+    "step": "C",
+    "octave": 5,
+    "alter": 0,
+    "midi": 72,
+    "value": "eighth",
+    "ticks": 6
+   },
+   {
+    "type": "note",
+    "pitch": "Ab4",
+    "step": "A",
+    "octave": 4,
+    "alter": -1,
+    "midi": 68,
+    "value": "eighth",
+    "ticks": 6
+   },
+   {
+    "type": "note",
+    "pitch": "C5",
+    "step": "C",
+    "octave": 5,
+    "alter": 0,
+    "midi": 72,
+    "value": "eighth",
+    "ticks": 6
+   },
+   {
+    "type": "note",
+    "pitch": "Eb4",
+    "step": "E",
+    "octave": 4,
+    "alter": -1,
+    "midi": 63,
+    "value": "eighth",
+    "ticks": 6
+   },
+   {
+    "type": "note",
+    "pitch": "Ab4",
+    "step": "A",
+    "octave": 4,
+    "alter": -1,
+    "midi": 68,
+    "value": "eighth",
+    "ticks": 6
+   },
+   {
+    "type": "note",
+    "pitch": "Eb4",
+    "step": "E",
+    "octave": 4,
+    "alter": -1,
+    "midi": 63,
+    "value": "eighth",
+    "ticks": 6
+   },
+   {
+    "type": "note",
+    "pitch": "C4",
+    "step": "C",
+    "octave": 4,
+    "alter": 0,
+    "midi": 60,
+    "value": "eighth",
+    "ticks": 6
+   }
+  ],
+  [
+   {
+    "type": "note",
+    "pitch": "Ab3",
+    "step": "A",
+    "octave": 3,
+    "alter": -1,
+    "midi": 56,
+    "value": "half",
+    "dots": 1,
+    "ticks": 36
+   }
+  ]
+ ],
+ "abc": "X:289\nT:Dictée 289\nM:9/8\nL:1/16\nK:Ab\nA2c2B2 A2E2A2 c2B2c2 | A2d2c2 B2E2B2 d2c2B2 | c2E2A2 d2F2A2 G2e2d2 | c2e2c2 A2c2E2 A2E2C2 | A,12 |]\n",
+ "issues": [
+  "measure 5: 36 ticks vs 54"
+ ]
+}

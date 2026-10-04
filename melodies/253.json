@@ -1,0 +1,229 @@
+{
+ "id": "253",
+ "number": 253,
+ "variant": null,
+ "page": 36,
+ "section": "Nouveautés – Le triolet ♪, les notes sol et fa ♪ , la septième mineure ascendante",
+ "clef": "bass",
+ "keySignature": 3,
+ "key": "A",
+ "mode": "major",
+ "meter": "2/4",
+ "anacrusis": false,
+ "staves": 2,
+ "ticksPerQuarter": 12,
+ "measures": [
+  [
+   {
+    "type": "note",
+    "pitch": "A2",
+    "step": "A",
+    "octave": 2,
+    "alter": 0,
+    "midi": 45,
+    "value": "quarter",
+    "ticks": 12
+   },
+   {
+    "type": "note",
+    "pitch": "A3",
+    "step": "A",
+    "octave": 3,
+    "alter": 0,
+    "midi": 57,
+    "value": "quarter",
+    "ticks": 12
+   }
+  ],
+  [
+   {
+    "type": "note",
+    "pitch": "C#3",
+    "step": "C",
+    "octave": 3,
+    "alter": 1,
+    "midi": 49,
+    "value": "quarter",
+    "ticks": 12
+   },
+   {
+    "type": "note",
+    "pitch": "D3",
+    "step": "D",
+    "octave": 3,
+    "alter": 0,
+    "midi": 50,
+    "value": "eighth",
+    "ticks": 6
+   },
+   {
+    "type": "note",
+    "pitch": "E3",
+    "step": "E",
+    "octave": 3,
+    "alter": 0,
+    "midi": 52,
+    "value": "eighth",
+    "ticks": 6
+   }
+  ],
+  [
+   {
+    "type": "note",
+    "pitch": "A2",
+    "step": "A",
+    "octave": 2,
+    "alter": 0,
+    "midi": 45,
+    "value": "quarter",
+    "ticks": 12
+   },
+   {
+    "type": "note",
+    "pitch": "F#3",
+    "step": "F",
+    "octave": 3,
+    "alter": 1,
+    "midi": 54,
+    "value": "quarter",
+    "ticks": 12
+   }
+  ],
+  [
+   {
+    "type": "note",
+    "pitch": "E3",
+    "step": "E",
+    "octave": 3,
+    "alter": 0,
+    "midi": 52,
+    "value": "quarter",
+    "dots": 1,
+    "ticks": 18
+   },
+   {
+    "type": "note",
+    "pitch": "D3",
+    "step": "D",
+    "octave": 3,
+    "alter": 0,
+    "midi": 50,
+    "value": "eighth",
+    "ticks": 6
+   }
+  ],
+  [
+   {
+    "type": "note",
+    "pitch": "C#3",
+    "step": "C",
+    "octave": 3,
+    "alter": 1,
+    "midi": 49,
+    "value": "quarter",
+    "ticks": 12
+   },
+   {
+    "type": "note",
+    "pitch": "B2",
+    "step": "B",
+    "octave": 2,
+    "alter": 0,
+    "midi": 47,
+    "value": "eighth",
+    "tuplet": 3,
+    "ticks": 4
+   },
+   {
+    "type": "note",
+    "pitch": "C#3",
+    "step": "C",
+    "octave": 3,
+    "alter": 1,
+    "midi": 49,
+    "value": "eighth",
+    "tuplet": 3,
+    "ticks": 4
+   },
+   {
+    "type": "note",
+    "pitch": "D3",
+    "step": "D",
+    "octave": 3,
+    "alter": 0,
+    "midi": 50,
+    "value": "eighth",
+    "tuplet": 3,
+    "ticks": 4
+   }
+  ],
+  [
+   {
+    "type": "note",
+    "pitch": "C#3",
+    "step": "C",
+    "octave": 3,
+    "alter": 1,
+    "midi": 49,
+    "value": "quarter",
+    "ticks": 12
+   },
+   {
+    "type": "note",
+    "pitch": "A3",
+    "step": "A",
+    "octave": 3,
+    "alter": 0,
+    "midi": 57,
+    "value": "quarter",
+    "ticks": 12
+   }
+  ],
+  [
+   {
+    "type": "note",
+    "pitch": "B2",
+    "step": "B",
+    "octave": 2,
+    "alter": 0,
+    "midi": 47,
+    "value": "quarter",
+    "ticks": 12
+   },
+   {
+    "type": "note",
+    "pitch": "G#3",
+    "step": "G",
+    "octave": 3,
+    "alter": 1,
+    "midi": 56,
+    "value": "quarter",
+    "ticks": 12
+   }
+  ],
+  [
+   {
+    "type": "note",
+    "pitch": "A3",
+    "step": "A",
+    "octave": 3,
+    "alter": 0,
+    "midi": 57,
+    "value": "quarter",
+    "ticks": 12
+   },
+   {
+    "type": "note",
+    "pitch": "A2",
+    "step": "A",
+    "octave": 2,
+    "alter": 0,
+    "midi": 45,
+    "value": "quarter",
+    "ticks": 12
+   }
+  ]
+ ],
+ "abc": "X:253\nT:Dictée 253\nM:2/4\nL:1/16\nK:A clef=bass\nA,,4 A,4 | C,4 D,2E,2 | A,,4 F,4 | E,6 D,2 | C,4 (3B,,2C,2D,2 | C,4 A,4 | B,,4 G,4 | A,4 A,,4 |]\n",
+ "issues": []
+}

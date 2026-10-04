@@ -1,0 +1,91 @@
+{
+ "id": "5",
+ "number": 5,
+ "variant": null,
+ "page": 1,
+ "section": "Nouveautés – La portée, la clé de sol, les secondes, la ronde, do, ré, mi",
+ "clef": "treble",
+ "keySignature": 0,
+ "key": "C",
+ "mode": "major",
+ "meter": null,
+ "anacrusis": false,
+ "staves": 1,
+ "ticksPerQuarter": 12,
+ "measures": [
+  [
+   {
+    "type": "note",
+    "pitch": "C4",
+    "step": "C",
+    "octave": 4,
+    "alter": 0,
+    "midi": 60,
+    "value": "whole",
+    "ticks": 48
+   },
+   {
+    "type": "note",
+    "pitch": "D4",
+    "step": "D",
+    "octave": 4,
+    "alter": 0,
+    "midi": 62,
+    "value": "whole",
+    "ticks": 48
+   },
+   {
+    "type": "note",
+    "pitch": "E4",
+    "step": "E",
+    "octave": 4,
+    "alter": 0,
+    "midi": 64,
+    "value": "whole",
+    "ticks": 48
+   },
+   {
+    "type": "note",
+    "pitch": "D4",
+    "step": "D",
+    "octave": 4,
+    "alter": 0,
+    "midi": 62,
+    "value": "whole",
+    "ticks": 48
+   },
+   {
+    "type": "note",
+    "pitch": "C4",
+    "step": "C",
+    "octave": 4,
+    "alter": 0,
+    "midi": 60,
+    "value": "whole",
+    "ticks": 48
+   },
+   {
+    "type": "note",
+    "pitch": "D4",
+    "step": "D",
+    "octave": 4,
+    "alter": 0,
+    "midi": 62,
+    "value": "whole",
+    "ticks": 48
+   },
+   {
+    "type": "note",
+    "pitch": "C4",
+    "step": "C",
+    "octave": 4,
+    "alter": 0,
+    "midi": 60,
+    "value": "whole",
+    "ticks": 48
+   }
+  ]
+ ],
+ "abc": "X:5\nT:Dictée 5\nM:none\nL:1/16\nK:C\nC16 D16 E16 D16 C16 D16 C16 |]\n",
+ "issues": []
+}
