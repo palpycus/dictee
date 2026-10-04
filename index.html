@@ -655,13 +655,6 @@ async function runDictation() {
   let step = 0;
   const progress = () => { $('barFill').style.width = Math.round(100 * step / totalSteps) + '%'; };
 
-  // announce: tonic chord, then the first note (as in a dictation class)
-  if (current.tonicChord) {
-    setStatus('Accord de tonique et première note…');
-    await playAbc(`X:1\n${current.header}Q:1/4=${tempo()}\n${current.tonicChord}4 z4 ${current.firstAbc}4 z4 |]\n`);
-    if (cancelled) return;
-    await sleep(600);
-  }
   for (let gi = 0; gi < groups.length && !cancelled; gi++) {
     const [a, b] = groups[gi];
     const abc = abcFor(current.measures.slice(a, b), { end: b === current.bars });
