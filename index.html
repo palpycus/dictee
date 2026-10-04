@@ -54,6 +54,22 @@
   textarea { width: 100%; min-height: 100px; font-family: ui-monospace, Menlo, monospace; font-size: 13px; border-radius: 10px; border: 1.5px solid #d9def0; padding: 8px; }
   .row { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin-top: 10px; }
   #settingsGrid { margin-top: 16px; padding-top: 14px; border-top: 1px solid #edf0f8; }
+  #historyPage { position: fixed; inset: 0; z-index: 40; background: var(--bg); overflow-y: auto; -webkit-overflow-scrolling: touch; }
+  .hp-inner { max-width: 900px; margin: 0 auto; padding: 20px 16px 40px; }
+  .hp-head { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 14px; }
+  .hp-head h2 { font-size: 20px; margin: 0; }
+  .hp-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 10px; margin-bottom: 16px; }
+  .hp-stats .stat { background: var(--card); border-radius: 12px; padding: 12px 8px; text-align: center; box-shadow: 0 4px 18px rgba(50,60,120,0.08); }
+  .hp-tablewrap { background: var(--card); border-radius: 16px; box-shadow: 0 4px 18px rgba(50,60,120,0.08); overflow-x: auto; }
+  #histTable { width: 100%; border-collapse: collapse; font-size: 14px; }
+  #histTable th, #histTable td { padding: 10px 12px; text-align: left; white-space: nowrap; border-bottom: 1px solid #edf0f8; }
+  #histTable th { font-size: 11px; letter-spacing: 1.2px; text-transform: uppercase; color: var(--muted); font-weight: 700; }
+  #histTable tbody tr:last-child td { border-bottom: none; }
+  #histTable .num { text-align: right; }
+  #histTable .muted { color: var(--muted); }
+  #histTable .empty { text-align: center; color: var(--muted); font-style: italic; padding: 28px; }
+  .hp-foot { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-top: 14px; flex-wrap: wrap; }
+  .hp-foot .hint { margin: 0; text-align: left; }
   #settingsBtn.open { background: var(--accent); color: white; }
 </style>
 </head>
@@ -63,6 +79,26 @@
   <h1>Dictée mélodique</h1>
   <p>Écoutez, écrivez la mélodie sur votre papier, puis révisez.</p>
 </header>
+
+<div id="historyPage" hidden role="dialog" aria-labelledby="historyTitle">
+  <div class="hp-inner">
+    <div class="hp-head">
+      <h2 id="historyTitle">📜 Historique des dictées</h2>
+      <button id="histCloseBtn" class="secondary">✕ Fermer</button>
+    </div>
+    <div id="histStats" class="hp-stats"></div>
+    <div class="hp-tablewrap">
+      <table id="histTable">
+        <thead><tr><th>Date</th><th>Heure</th><th>Dictée</th><th>Détail</th><th class="num">Tempo</th></tr></thead>
+        <tbody id="histBody"></tbody>
+      </table>
+    </div>
+    <div class="hp-foot">
+      <span class="hint">Enregistré localement dans ce navigateur.</span>
+      <button id="clearHistBtn" class="danger">🗑 Effacer l'historique</button>
+    </div>
+  </div>
+</div>
 
 <div class="card" id="banner"></div>
 
@@ -111,6 +147,14 @@
         <option value="none">aucun</option>
       </select>
     </div>
+    <div class="wide">
+      <div class="label">Importer mes dictées (.abc ou .json)</div>
+      <div class="row" style="margin-top:0">
+        <input type="file" id="importFile" accept=".abc,.txt,.json,text/plain,application/json" multiple style="flex:1">
+        <button id="clearImportBtn" class="danger">Supprimer</button>
+      </div>
+      <div class="hint" id="importInfo" style="text-align:left"></div>
+    </div>
     <div>
       <div class="label">À la fin</div>
       <select id="finalSel">
@@ -125,6 +169,7 @@
     <button id="stopBtn" class="secondary" disabled>⏹ Arrêter</button>
     <button id="reviewBtn" class="secondary" disabled>👁 Réviser</button>
     <button id="settingsBtn" class="secondary" aria-expanded="false">⚙ Réglages</button>
+    <button id="histBtn" class="secondary">📜 Historique</button>
   </div>
 </div>
 
@@ -151,17 +196,6 @@
   <details style="margin-top:10px"><summary>Notation ABC</summary><textarea id="abcOut" readonly></textarea></details>
 </div>
 
-<div class="card">
-  <details>
-    <summary>Mes dictées (import ABC)</summary>
-    <p class="hint" style="text-align:left">Importez un ou plusieurs fichiers : <strong>.abc</strong> (un en-tête <code>X:</code> par mélodie) ou <strong>.json</strong> (un objet, ou un tableau d'objets, avec un champ <code>abc</code>). Les mélodies sont conservées dans ce navigateur et apparaissent en bas de la liste des exercices.</p>
-    <div class="row">
-      <input type="file" id="importFile" accept=".abc,.txt,.json,text/plain,application/json" multiple>
-      <button id="clearImportBtn" class="danger">Supprimer mes dictées</button>
-    </div>
-    <div class="hint" id="importInfo" style="text-align:left"></div>
-  </details>
-</div>
 
 <div id="hiddenScore"></div>
 
@@ -687,6 +721,44 @@ async function countIn() {
   }
 }
 
+/* ---- run history (localStorage): one entry per completed dictation, with date + hh:mm ---- */
+let history = [];
+try { history = JSON.parse(localStorage.getItem('dictee-history')) || []; } catch (e) {}
+function saveHistory() { try { localStorage.setItem('dictee-history', JSON.stringify(history.slice(0, 5000))); } catch (e) {} }
+const esc = t => String(t).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+function recordRun() {
+  const id = currentId();
+  const name = id.startsWith('g') ? `n° ${id.slice(1)}` : (imported[+id.slice(1)] || {}).title || 'importée';
+  history.unshift({ ts: new Date().toISOString(), name, key: current.keyLabel, meter: current.meter, bars: current.bars,
+                    group: $('groupSel').value, reps: +$('repSel').value, tempo: tempo() });
+  saveHistory(); renderHistory();
+}
+function renderHistory() {
+  $('histBtn').textContent = '📜 Historique' + (history.length ? ` (${history.length})` : '');
+  const body = $('histBody'), stats = $('histStats');
+  if (!history.length) { stats.innerHTML = ''; body.innerHTML = '<tr><td colspan="5" class="empty">Aucune dictée terminée pour l\'instant.</td></tr>'; return; }
+  const weekAgo = Date.now() - 7 * 86400e3, week = history.filter(h => new Date(h.ts).getTime() > weekAgo).length;
+  const distinct = new Set(history.map(h => h.name)).size;
+  stats.innerHTML = [[history.length, 'dictées'], [week, '7 derniers jours'], [distinct, 'exercices différents']]
+    .map(([v, l]) => `<div class="stat"><div class="value">${v}</div><div class="lbl">${l}</div></div>`).join('');
+  body.innerHTML = history.map(h => {
+    const d = new Date(h.ts);
+    return `<tr><td>${d.toLocaleDateString('fr-FR', { day: '2-digit', month: '2-digit', year: 'numeric' })}</td>
+      <td class="muted">${d.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' })}</td>
+      <td>${esc(h.name)}</td>
+      <td class="muted">${esc(h.key)} · ${esc(h.meter)} · ${h.bars} mes. · groupes de ${h.group === 'all' ? 'tout' : h.group} × ${h.reps}</td>
+      <td class="num">♩ = ${h.tempo}</td></tr>`;
+  }).join('');
+}
+function showHistory(on) { if (on) renderHistory(); $('historyPage').hidden = !on; document.body.style.overflow = on ? 'hidden' : ''; }
+$('histBtn').addEventListener('click', () => showHistory(true));
+$('histCloseBtn').addEventListener('click', () => showHistory(false));
+document.addEventListener('keydown', e => { if (e.key === 'Escape' && !$('historyPage').hidden) showHistory(false); });
+$('clearHistBtn').addEventListener('click', () => {
+  if (!history.length || !confirm(`Effacer les ${history.length} dictées enregistrées ?`)) return;
+  history = []; localStorage.removeItem('dictee-history'); renderHistory();
+});
+
 /* step-driven dictation: Start plays step 0; "Suivant" plays the next step (a repeat of the
    same group, the next group, or the whole piece at the end). Nothing auto-advances. */
 let steps = [], stepIdx = -1, stepRunning = false;
@@ -734,6 +806,7 @@ async function runStep(i) {
   } else {
     $('stepBtn').disabled = true; $('stepBtn').textContent = 'Terminé';
     setStatus('Terminé. Comparez avec la correction.'); listened = true;
+    recordRun();
   }
 }
 
@@ -821,6 +894,7 @@ exerciseList();
 try { const last = localStorage.getItem('dictee-last'); if (last && [...$('exerciseSel').options].some(o => o.value === last)) $('exerciseSel').value = last; } catch (e) {}
 if (typeof ABCJS === 'undefined') showBanner('La bibliothèque abcjs n\'a pas pu être chargée (connexion réseau ?).');
 loadCurrent();
+renderHistory();
 </script>
 </body>
 </html>
