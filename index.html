@@ -147,14 +147,6 @@
         <option value="none">aucun</option>
       </select>
     </div>
-    <div class="wide">
-      <div class="label">Importer mes dictées (.abc ou .json)</div>
-      <div class="row" style="margin-top:0">
-        <input type="file" id="importFile" accept=".abc,.txt,.json,text/plain,application/json" multiple style="flex:1">
-        <button id="clearImportBtn" class="danger">Supprimer</button>
-      </div>
-      <div class="hint" id="importInfo" style="text-align:left"></div>
-    </div>
     <div>
       <div class="label">À la fin</div>
       <select id="finalSel">
@@ -565,41 +557,7 @@ function generate(n) {
    ==================================================================================== */
 let imported = [];
 try { imported = JSON.parse(localStorage.getItem('dictee-import')) || []; } catch (e) {}
-function parseAbcFile(text) {
-  const tunes = text.replace(/\r/g, '').split(/\n(?=X:)/).map(t => t.trim()).filter(t => /^X:/.test(t));
-  return tunes.map(t => {
-    const lines = t.split('\n');
-    const header = [], body = [];
-    let inBody = false;
-    for (const l of lines) {
-      if (!inBody && /^[A-Za-z]:/.test(l)) { header.push(l); if (/^K:/.test(l)) inBody = true; }
-      else if (inBody) body.push(l);
-    }
-    const title = (header.find(l => /^T:/.test(l)) || 'T:Sans titre').slice(2).trim();
-    const meter = (header.find(l => /^M:/.test(l)) || 'M:4/4').slice(2).trim();
-    const keyLine = (header.find(l => /^K:/.test(l)) || 'K:C').slice(2).trim();
-    const bodyText = body.filter(l => !/^[A-Za-z]:/.test(l) && !/^%/.test(l)).join(' ');
-    const measures = bodyText.split(/\|\]|\|\||:\||\|:|\|/).map(s => s.trim()).filter(Boolean);
-    const hdr = header.filter(l => !/^[XT]:/.test(l)).join('\n') + '\n';
-    return { title, meter, keyLine, measures, header: hdr, abc: t + '\n' };
-  });
-}
 function saveImported() { try { localStorage.setItem('dictee-import', JSON.stringify(imported)); } catch (e) {} }
-// JSON: one object or an array of objects; each object must carry an "abc" string (other fields optional)
-function parseJsonFile(text) {
-  let data = JSON.parse(text);
-  if (!Array.isArray(data)) data = [data];
-  const tunes = [];
-  for (const item of data) {
-    if (!item || typeof item.abc !== 'string') continue;
-    const t = parseAbcFile(item.abc)[0];
-    if (!t) continue;
-    if (item.number != null) t.title = `Dictée ${item.number}${item.variant ? ' ' + item.variant : ''}`;
-    if (item.section) t.section = String(item.section);
-    tunes.push(t);
-  }
-  return tunes;
-}
 // announcement data (tonic chord + first note) derived from an imported tune's K: line and first measure
 function importedAnnounce(t) {
   const m = /^([A-G])([#b]?)\s*(m|min|minor|maj|major|dor|mix|lyd|phr|loc)?/i.exec(t.keyLine.trim());
@@ -636,7 +594,6 @@ function exerciseList() {
     sel.add(o);
   }
   imported.forEach((t, i) => sel.add(new Option(`★ ${t.title} (${t.meter}, ${t.measures.length} mes.)`, 'i' + i)));
-  $('importInfo').textContent = imported.length ? `${imported.length} dictée(s) importée(s).` : '';
 }
 function currentId() { return $('exerciseSel').value; }
 function loadCurrent() {
@@ -864,28 +821,6 @@ $('exerciseSel').addEventListener('change', () => { stopAll(); loadCurrent(); })
   try { localStorage.setItem('dictee-' + id, $(id).value); } catch (e) {}
   if (!stepRunning) resetSteps();
 }));
-
-$('importFile').addEventListener('change', async (ev) => {
-  const files = [...ev.target.files]; if (!files.length) return;
-  let added = [];
-  try {
-    for (const f of files) {
-      const text = await f.text();
-      const isJson = /\.json$/i.test(f.name) || /^\s*[\[{]/.test(text);
-      added = added.concat(isJson ? parseJsonFile(text) : parseAbcFile(text));
-    }
-    if (!added.length) { showBanner('Aucune mélodie trouvée (il faut un en-tête X: en ABC, ou un champ "abc" en JSON).'); return; }
-    const before = imported.length;
-    imported = imported.concat(added); saveImported(); exerciseList();
-    $('exerciseSel').value = 'i' + before; loadCurrent();
-    $('importInfo').textContent = `${added.length} mélodie(s) ajoutée(s) — ${imported.length} au total.`;
-  } catch (e) { showBanner('Import impossible : ' + e.message); }
-  ev.target.value = '';
-});
-$('clearImportBtn').addEventListener('click', () => {
-  if (!imported.length || !confirm(`Supprimer les ${imported.length} dictées importées ?`)) return;
-  imported = []; saveImported(); exerciseList(); $('exerciseSel').selectedIndex = 0; loadCurrent();
-});
 
 // ---- init ----
 try { if ('speechSynthesis' in window) { speechSynthesis.getVoices(); speechSynthesis.onvoiceschanged = () => speechSynthesis.getVoices(); } } catch (e) {}
