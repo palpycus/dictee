@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dictée mélodique</title>
+<script src="https://cdn.jsdelivr.net/npm/abcjs@6.4.4/dist/abcjs-basic-min.js"></script>
+<style>
+  :root {
+    --bg: #f4f6fb; --ink: #2e3350; --accent: #4a6cf7; --good: #3cb371; --bad: #e0687c;
+    --card: #ffffff; --muted: #8d93ad; --soft: #e9edff;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; font-family: -apple-system, "Segoe UI", Roboto, sans-serif; background: var(--bg); color: var(--ink);
+    display: flex; flex-direction: column; align-items: center; min-height: 100vh;
+  }
+  header { text-align: center; margin: 24px 16px 6px; }
+  header h1 { font-size: 22px; margin: 0 0 4px; }
+  header p { margin: 0; color: var(--muted); font-size: 14px; }
+  .card {
+    background: var(--card); border-radius: 16px; padding: 18px 24px; margin: 12px;
+    box-shadow: 0 4px 18px rgba(50,60,120,0.08); max-width: 820px; width: calc(100% - 24px);
+  }
+  .label { font-size: 11px; letter-spacing: 1.2px; text-transform: uppercase; color: var(--muted); font-weight: 700; margin-bottom: 6px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 14px 22px; }
+  .grid .wide { grid-column: 1 / -1; }
+  select, input[type=file] {
+    font-size: 15px; padding: 9px 12px; border-radius: 10px; border: 1.5px solid #d9def0; background: white; color: var(--ink); width: 100%;
+  }
+  button {
+    font-size: 15px; padding: 11px 22px; border: none; border-radius: 10px; background: var(--accent); color: white; cursor: pointer; font-weight: 600;
+  }
+  button.secondary { background: var(--soft); color: var(--accent); }
+  button.danger { background: #fdecef; color: var(--bad); }
+  button:disabled { opacity: 0.45; cursor: default; }
+  #controls { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; margin-top: 14px; }
+  #exerciseRow { display: flex; gap: 8px; align-items: center; }
+  #exerciseRow select { flex: 1; }
+  #exerciseRow button { padding: 9px 14px; }
+  #info { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 10px; text-align: center; }
+  .stat .value { font-size: 22px; font-weight: 700; min-height: 28px; }
+  .stat .lbl { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; }
+  #status { text-align: center; font-size: 17px; font-weight: 600; margin-top: 14px; min-height: 24px; }
+  #bar { height: 8px; background: #e9edf7; border-radius: 4px; overflow: hidden; margin-top: 10px; }
+  #barFill { height: 100%; width: 0%; background: var(--accent); transition: width 200ms linear; }
+  .hint { font-size: 12px; color: var(--muted); text-align: center; margin-top: 8px; }
+  #score svg { max-width: 100%; height: auto; }
+  #score { overflow-x: auto; }
+  #hiddenScore { position: absolute; left: -9999px; top: 0; width: 800px; height: 0; overflow: hidden; visibility: hidden; }
+  #banner { background: #fdecef; color: var(--bad); padding: 12px 16px; border-radius: 10px; display: none; font-size: 14px; }
+  .concept { color: var(--muted); font-size: 14px; text-align: center; margin-top: 8px; }
+  details summary { cursor: pointer; color: var(--accent); font-weight: 600; }
+  textarea { width: 100%; min-height: 100px; font-family: ui-monospace, Menlo, monospace; font-size: 13px; border-radius: 10px; border: 1.5px solid #d9def0; padding: 8px; }
+  .row { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin-top: 10px; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Dictée mélodique</h1>
+  <p>Écoutez, écrivez la mélodie sur votre papier, puis révisez.</p>
+</header>
+
+<div class="card" id="banner"></div>
+
+<div class="card">
+  <div class="grid">
+    <div class="wide">
+      <div class="label">Exercice</div>
+      <div id="exerciseRow">
+        <button id="prevBtn" class="secondary" title="Précédent">◀</button>
+        <select id="exerciseSel"></select>
+        <button id="nextBtn" class="secondary" title="Suivant">▶</button>
+      </div>
+      <div class="concept" id="concept"></div>
+    </div>
+    <div>
+      <div class="label">Mesures jouées par groupe</div>
+      <select id="groupSel">
+        <option value="1">1 mesure</option>
+        <option value="2" selected>2 mesures</option>
+        <option value="3">3 mesures</option>
+        <option value="4">4 mesures</option>
+        <option value="all">Toute la dictée</option>
+      </select>
+    </div>
+    <div>
+      <div class="label">Répétitions par groupe</div>
+      <select id="repSel">
+        <option value="1">1 fois</option><option value="2">2 fois</option><option value="3" selected>3 fois</option>
+        <option value="4">4 fois</option><option value="5">5 fois</option>
+      </select>
+    </div>
+    <div>
+      <div class="label">Tempo</div>
+      <select id="tempoSel">
+        <option value="60">♩ = 60</option><option value="72">♩ = 72</option><option value="84" selected>♩ = 84</option>
+        <option value="96">♩ = 96</option><option value="108">♩ = 108</option><option value="120">♩ = 120</option>
+      </select>
+    </div>
+    <div>
+      <div class="label">Pause entre les écoutes</div>
+      <select id="pauseSel">
+        <option value="0.5">courte</option><option value="1" selected>normale</option><option value="2">longue</option>
+      </select>
+    </div>
+    <div>
+      <div class="label">À la fin</div>
+      <select id="finalSel">
+        <option value="1" selected>jouer la dictée entière</option>
+        <option value="0">ne rien ajouter</option>
+      </select>
+    </div>
+  </div>
+  <div id="controls">
+    <button id="startBtn">▶ Commencer la dictée</button>
+    <button id="stopBtn" class="secondary" disabled>⏹ Arrêter</button>
+    <button id="reviewBtn" class="secondary" disabled>👁 Réviser</button>
+  </div>
+</div>
+
+<div class="card">
+  <div id="info">
+    <div class="stat"><div class="value" id="iKey">—</div><div class="lbl">tonalité</div></div>
+    <div class="stat"><div class="value" id="iMeter">—</div><div class="lbl">mesure</div></div>
+    <div class="stat"><div class="value" id="iBars">—</div><div class="lbl">mesures</div></div>
+    <div class="stat"><div class="value" id="iFirst">—</div><div class="lbl">première note</div></div>
+    <div class="stat"><div class="value" id="iClef">—</div><div class="lbl">clé</div></div>
+  </div>
+  <div id="status">Prêt.</div>
+  <div id="bar"><div id="barFill"></div></div>
+  <div class="hint">La partition reste cachée pendant la dictée. Le bouton « Réviser » l'affiche.</div>
+</div>
+
+<div class="card" id="reviewCard" hidden>
+  <div class="label">Correction</div>
+  <div id="score"></div>
+  <div class="row">
+    <button id="replayBtn" class="secondary">▶ Réécouter la dictée</button>
+    <button id="replayStopBtn" class="secondary" disabled>⏹</button>
+    <button id="nextExBtn">Exercice suivant ▶</button>
+  </div>
+  <details style="margin-top:10px"><summary>Notation ABC</summary><textarea id="abcOut" readonly></textarea></details>
+</div>
+
+<div class="card">
+  <details>
+    <summary>Mes dictées (import ABC)</summary>
+    <p class="hint" style="text-align:left">Importez un fichier .abc contenant une ou plusieurs mélodies (un en-tête <code>X:</code> par mélodie). Elles sont conservées dans ce navigateur et apparaissent en bas de la liste des exercices.</p>
+    <div class="row">
+      <input type="file" id="importFile" accept=".abc,.txt,text/plain">
+      <button id="clearImportBtn" class="danger">Supprimer mes dictées</button>
+    </div>
+    <div class="hint" id="importInfo" style="text-align:left"></div>
+  </details>
+</div>
+
+<div id="hiddenScore"></div>
+
+<script>
+'use strict';
+
+/* ====================================================================================
+   GENERATOR — original melodies following a graded dictation curriculum.
+   36 levels × 10 exercises = 360 numbered dictations. Exercise n always yields the
+   same melody (seeded PRNG), so "aller à l'exercice 123" is reproducible.
+   ==================================================================================== */
+
+// ---- tiny seeded PRNG ----
+function mulberry32(seed) {
+  let a = seed >>> 0;
+  return function () {
+    a = (a + 0x6D2B79F5) >>> 0;
+    let t = a;
+    t = Math.imul(t ^ (t >>> 15), t | 1);
+    t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+
+// ---- keys ----
+const SHARP_ORDER = ['F', 'C', 'G', 'D', 'A', 'E', 'B'], FLAT_ORDER = ['B', 'E', 'A', 'D', 'G', 'C', 'F'];
+const LETTERS = ['C', 'D', 'E', 'F', 'G', 'A', 'B'];
+const FR = { C: 'do', D: 'ré', E: 'mi', F: 'fa', G: 'sol', A: 'la', B: 'si' };
+const KEYS = {   // name → [key signature (+sharps / -flats), tonic letter, mode]
+  'C': [0, 'C', 'maj'], 'G': [1, 'G', 'maj'], 'D': [2, 'D', 'maj'], 'A': [3, 'A', 'maj'], 'E': [4, 'E', 'maj'],
+  'F': [-1, 'F', 'maj'], 'Bb': [-2, 'B', 'maj'], 'Eb': [-3, 'E', 'maj'], 'Ab': [-4, 'A', 'maj'],
+  'Am': [0, 'A', 'min'], 'Em': [1, 'E', 'min'], 'Bm': [2, 'B', 'min'], 'F#m': [3, 'F', 'min'], 'C#m': [4, 'C', 'min'],
+  'Dm': [-1, 'D', 'min'], 'Gm': [-2, 'G', 'min'], 'Cm': [-3, 'C', 'min'], 'Fm': [-4, 'F', 'min'],
+};
+function keySigAlt(sig, letter) {           // alteration a letter gets from the key signature
+  if (sig > 0) return SHARP_ORDER.indexOf(letter) < sig ? 1 : 0;
+  if (sig < 0) return FLAT_ORDER.indexOf(letter) < -sig ? -1 : 0;
+  return 0;
+}
+function keyLabel(k) {
+  const [sig, letter, mode] = KEYS[k];
+  const alt = keySigAlt(sig, letter);
+  return FR[letter] + (alt > 0 ? '♯' : alt < 0 ? '♭' : '') + (mode === 'maj' ? ' majeur' : ' mineur');
+}
+function relative(k) {                        // relative major/minor
+  const [sig, , mode] = KEYS[k];
+  return Object.keys(KEYS).find(n => KEYS[n][0] === sig && KEYS[n][2] !== mode);
+}
+function shiftKey(k, steps) {                 // dominant (+1 sharp) / subdominant (-1)
+  const [sig, , mode] = KEYS[k];
+  return Object.keys(KEYS).find(n => KEYS[n][0] === sig + steps && KEYS[n][2] === mode) || k;
+}
+
+// ---- clefs: where the tonic sits so the melody fits the staff ----
+const CLEF_RANGE = { treble: [26, 32], bass: [16, 22], alto: [24, 30] };   // deg = octave*7 + letter, C4 = 28
+const CLEF_FR = { treble: 'clé de sol', bass: 'clé de fa', alto: 'clé d\'ut' };
+function tonicDeg(key, clef) {
+  const letter = LETTERS.indexOf(KEYS[key][1]);
+  const [lo, hi] = CLEF_RANGE[clef];
+  for (let d = lo; d <= hi; d++) if (d % 7 === letter) return d;
+  return lo;
+}
+
+// ---- rhythm cells: ticks, quarter = 12 (so a sixteenth = 3, a triplet eighth = 4) ----
+// each cell: { n: [ticks...], r: [rest flags], tup: tuplet or 0, beats: beats it spans (simple meters) }
+const CELLS = {
+  w:    { n: [48], span: 48 }, hd: { n: [36], span: 36 }, h: { n: [24], span: 24 }, q: { n: [12], span: 12 },
+  rh:   { n: [24], r: [1], span: 24 }, rq: { n: [12], r: [1], span: 12 },
+  sync: { n: [12, 24, 12], span: 48 },                       // noire – blanche – noire
+  qd_e: { n: [18, 6], span: 24 }, ee: { n: [6, 6], span: 12 }, ee_same: { n: [6, 6], same: true, span: 12 },
+  re_e: { n: [6, 6], r: [1, 0], span: 12 }, e_re: { n: [6, 6], r: [0, 1], span: 12 },
+  de_s: { n: [9, 3], span: 12 }, ssss: { n: [3, 3, 3, 3], span: 12 }, e_ss: { n: [6, 3, 3], span: 12 }, ss_e: { n: [3, 3, 6], span: 12 },
+  eqe:  { n: [6, 12, 6], span: 24 },                         // syncope croche – noire – croche
+  trip: { n: [4, 4, 4], tup: 3, span: 12 },
+  // compound meters (beat = dotted quarter = 18)
+  cqd: { n: [18], span: 18 }, ceee: { n: [6, 6, 6], span: 18 }, cq_e: { n: [12, 6], span: 18 }, ce_q: { n: [6, 12], span: 18 },
+  crqd: { n: [18], r: [1], span: 18 }, cde_s_e: { n: [9, 3, 6], span: 18 }, ce_ss_e: { n: [6, 3, 3, 6], span: 18 },
+  chd: { n: [36], span: 36 },
+};
+const METER_TICKS = { '4/4': 48, '3/4': 36, '2/4': 24, '6/8': 36, '3/8': 18, '9/8': 54, '12/8': 72 };
+const COMPOUND = m => m.endsWith('/8');
+
+/* ---- the 36 levels ----
+   range: [low, high] in scale steps from the tonic (0 = tonic, 7 = octave above, -1 = leading tone below)
+   leap: max melodic interval in scale steps (1 = seconde, 2 = tierce … 7 = octave)
+   cells: weighted rhythm vocabulary (beat cells for simple meters, 'c…' cells for compound) */
+const LEVELS = [
+  { c: 'La portée, la clé de sol, les secondes, la ronde (do, ré, mi)', keys: ['C'], meters: ['4/4'], range: [0, 2], leap: 1, cells: { w: 1 }, bars: 6, repeats: 0.3 },
+  { c: 'Le chiffre indicateur 4/4, la blanche', keys: ['C'], meters: ['4/4'], range: [0, 2], leap: 1, cells: { w: 1, h: 4 }, bars: 4, repeats: 0.3 },
+  { c: 'La seconde mineure (mi–fa), les notes fa et sol, la demi-pause', keys: ['C'], meters: ['4/4'], range: [0, 4], leap: 1, cells: { w: 1, h: 4, rh: 1 }, bars: 4 },
+  { c: 'La noire, le soupir', keys: ['C'], meters: ['4/4'], range: [0, 4], leap: 1, cells: { h: 3, q: 4, rq: 1 }, bars: 4 },
+  { c: 'La note la, la blanche pointée', keys: ['C'], meters: ['4/4'], range: [0, 5], leap: 1, cells: { h: 3, q: 4, hd: 2, rq: 1 }, bars: 4 },
+  { c: 'Le chiffre indicateur 3/4, la note si', keys: ['C'], meters: ['3/4', '4/4'], range: [0, 6], leap: 1, cells: { h: 3, q: 4, hd: 2, rq: 1 }, bars: 4 },
+  { c: 'La syncope', keys: ['C'], meters: ['4/4'], range: [0, 6], leap: 1, cells: { h: 2, q: 4, sync: 3, rq: 1 }, bars: 4 },
+  { c: 'Le chiffre indicateur 2/4, l\'anacrouse', keys: ['C'], meters: ['2/4', '3/4', '4/4'], range: [0, 6], leap: 1, cells: { h: 2, q: 5, hd: 1, rq: 1 }, bars: 4, anacrusis: true },
+  { c: 'Les tierces mineures (mi–sol, fa–ré, ré–si)', keys: ['C'], meters: ['2/4', '3/4', '4/4'], range: [0, 6], leap: 2, cells: { h: 2, q: 5, hd: 1, rq: 1 }, bars: 4 },
+  { c: 'La gamme de do majeur, la tierce mineure do–la', keys: ['C'], meters: ['2/4', '3/4', '4/4'], range: [0, 7], leap: 2, cells: { h: 2, q: 5, hd: 1, rq: 1 }, bars: 4 },
+  { c: 'La liaison, les mélodies qui commencent sur la médiante', keys: ['C'], meters: ['2/4', '3/4', '4/4'], range: [0, 7], leap: 2, cells: { h: 2, q: 5, hd: 1, rq: 1 }, bars: 4, ties: true, start: ['mediant', 'tonic'] },
+  { c: 'Les croches sur la même note', keys: ['C'], meters: ['2/4', '3/4', '4/4'], range: [0, 7], leap: 2, cells: { h: 1, q: 5, ee_same: 3, rq: 1 }, bars: 4 },
+  { c: 'Les mélodies qui commencent sur la dominante, les croches conjointes', keys: ['C'], meters: ['2/4', '3/4', '4/4'], range: [0, 7], leap: 2, cells: { h: 1, q: 5, ee: 3, ee_same: 1, rq: 1 }, bars: 4, start: ['dominant', 'tonic', 'mediant'] },
+  { c: 'La tonalité de fa majeur, l\'armure d\'un bémol', keys: ['F'], meters: ['2/4', '3/4', '4/4'], range: [-1, 7], leap: 2, cells: { h: 1, q: 5, ee: 3, rq: 1 }, bars: 4 },
+  { c: 'Le rythme noire pointée – croche', keys: ['C', 'F'], meters: ['2/4', '3/4', '4/4'], range: [-1, 7], leap: 2, cells: { h: 1, q: 5, ee: 2, qd_e: 3, rq: 1 }, bars: 4 },
+  { c: 'La tonalité de sol majeur', keys: ['G'], meters: ['2/4', '3/4', '4/4'], range: [-1, 7], leap: 2, cells: { h: 1, q: 5, ee: 2, qd_e: 2, rq: 1 }, bars: 4 },
+  { c: 'La tierce majeure, l\'arpège de tonique', keys: ['C', 'F', 'G'], meters: ['2/4', '3/4', '4/4'], range: [-1, 7], leap: 4, cells: { h: 1, q: 5, ee: 2, qd_e: 2, rq: 1 }, bars: 4, arpeggio: true },
+  { c: 'La clé de fa', keys: ['C', 'F', 'G'], meters: ['2/4', '3/4', '4/4'], range: [-1, 7], leap: 4, cells: { h: 1, q: 5, ee: 2, qd_e: 2, rq: 1 }, bars: 4, clefs: ['bass'], arpeggio: true },
+  { c: 'Les rythmes croche – deux doubles et deux doubles – croche', keys: ['C', 'F', 'G'], meters: ['2/4', '3/4', '4/4'], range: [-1, 7], leap: 4, cells: { q: 5, ee: 2, e_ss: 3, ss_e: 3, qd_e: 1, rq: 1 }, bars: 4, clefs: ['treble', 'treble', 'bass'] },
+  { c: 'Les chiffres indicateurs 6/8 et 3/8', keys: ['C', 'F', 'G'], meters: ['6/8', '3/8'], range: [-1, 7], leap: 4, cells: { cqd: 3, ceee: 4, cq_e: 3, ce_q: 1, crqd: 1 }, bars: 4, clefs: ['treble', 'bass'] },
+  { c: 'La quinte juste', keys: ['C', 'F', 'G'], meters: ['2/4', '3/4', '4/4', '6/8'], range: [-1, 7], leap: 4, cells: { q: 5, ee: 3, qd_e: 2, e_ss: 1, rq: 1, cqd: 3, ceee: 4, cq_e: 2 }, bars: 4, intervals: [4], clefs: ['treble', 'bass'] },
+  { c: 'La tonalité de la mineur, la sensible (sol♯)', keys: ['Am'], meters: ['2/4', '3/4', '4/4'], range: [-1, 7], leap: 4, cells: { h: 1, q: 5, ee: 3, qd_e: 2, rq: 1 }, bars: 4, leadingTone: true, clefs: ['treble', 'bass'] },
+  { c: 'Le rythme croche pointée – double', keys: ['C', 'F', 'G', 'Am'], meters: ['2/4', '3/4', '4/4'], range: [-3, 9], leap: 4, cells: { q: 5, ee: 3, de_s: 3, qd_e: 1, rq: 1 }, bars: 4, leadingTone: true, clefs: ['treble', 'bass'] },
+  { c: 'La gamme de la mineur mélodique, la quarte juste descendante', keys: ['Am'], meters: ['2/4', '3/4', '4/4'], range: [-3, 9], leap: 4, cells: { h: 1, q: 5, ee: 3, de_s: 1, qd_e: 1, rq: 1 }, bars: 4, leadingTone: true, melodicMinor: true, intervals: [3], clefs: ['treble', 'bass'] },
+  { c: 'Les quatre doubles-croches, la quarte ascendante', keys: ['C', 'F', 'G', 'Am'], meters: ['2/4', '3/4', '4/4'], range: [-3, 9], leap: 4, cells: { q: 4, ee: 3, ssss: 3, e_ss: 1, de_s: 1, rq: 1 }, bars: 4, intervals: [3], leadingTone: true, clefs: ['treble', 'bass'] },
+  { c: 'La tierce majeure descendante, la tonalité de ré majeur', keys: ['D'], meters: ['2/4', '3/4', '4/4', '6/8'], range: [-3, 9], leap: 4, cells: { q: 4, ee: 3, de_s: 1, qd_e: 1, rq: 1, cqd: 3, ceee: 4, cq_e: 2 }, bars: 8, clefs: ['treble', 'bass'] },
+  { c: 'L\'octave, la tonalité de ré mineur', keys: ['Dm'], meters: ['2/4', '3/4', '4/4'], range: [-3, 9], leap: 7, cells: { h: 1, q: 5, ee: 3, qd_e: 1, rq: 1 }, bars: 8, intervals: [7], leadingTone: true, clefs: ['treble', 'bass'] },
+  { c: 'La syncope croche – noire – croche, la tonalité de si♭ majeur', keys: ['Bb'], meters: ['2/4', '4/4'], range: [-3, 9], leap: 5, cells: { q: 4, ee: 3, eqe: 3, de_s: 1, rq: 1 }, bars: 8, clefs: ['treble', 'bass'] },
+  { c: 'La tonalité de mi mineur', keys: ['Em'], meters: ['2/4', '3/4', '4/4', '6/8'], range: [-3, 9], leap: 5, cells: { q: 4, ee: 3, qd_e: 1, de_s: 1, rq: 1, cqd: 3, ceee: 4, cq_e: 2, cde_s_e: 1 }, bars: 8, leadingTone: true, melodicMinor: true, clefs: ['treble', 'bass'] },
+  { c: 'Les sixtes majeures et mineures', keys: ['C', 'G', 'F', 'D', 'Bb', 'Am', 'Em', 'Dm'], meters: ['2/4', '3/4', '4/4'], range: [-3, 9], leap: 5, cells: { q: 4, ee: 3, qd_e: 1, de_s: 1, rq: 1 }, bars: 8, intervals: [5], leadingTone: true, clefs: ['treble', 'bass'] },
+  { c: 'La tonalité de la majeur, le triolet, la septième mineure ascendante', keys: ['A'], meters: ['2/4', '3/4', '4/4'], range: [-3, 9], leap: 6, cells: { q: 4, ee: 3, trip: 3, qd_e: 1, rq: 1 }, bars: 8, intervals: [6], clefs: ['treble', 'bass'] },
+  { c: 'La tonalité de sol mineur, les doubles-croches conjointes', keys: ['Gm'], meters: ['2/4', '3/4', '4/4'], range: [-3, 9], leap: 5, cells: { q: 4, ee: 3, ssss: 3, e_ss: 1, ss_e: 1, rq: 1 }, bars: 8, leadingTone: true, melodicMinor: true, clefs: ['treble', 'bass'] },
+  { c: 'Le chiffre indicateur 9/8, la septième majeure, la tonalité de si mineur', keys: ['Bm'], meters: ['9/8', '6/8', '3/4'], range: [-3, 9], leap: 6, cells: { q: 4, ee: 3, qd_e: 1, rq: 1, cqd: 3, ceee: 4, cq_e: 2, ce_q: 1, cde_s_e: 1 }, bars: 8, intervals: [6], leadingTone: true, clefs: ['treble', 'bass'] },
+  { c: 'Les tonalités de mi♭ majeur, do mineur, fa♯ mineur, la♭ majeur et fa mineur, le triton', keys: ['Eb', 'Cm', 'F#m', 'Ab', 'Fm'], meters: ['2/4', '3/4', '4/4', '6/8'], range: [-3, 9], leap: 5, cells: { q: 4, ee: 3, de_s: 1, qd_e: 1, trip: 1, rq: 1, cqd: 3, ceee: 4, cq_e: 2 }, bars: 8, leadingTone: true, melodicMinor: true, clefs: ['treble', 'bass'] },
+  { c: 'Les tonalités de mi majeur et do♯ mineur, la clé d\'ut, le 12/8', keys: ['E', 'C#m'], meters: ['2/4', '4/4', '12/8', '6/8'], range: [-3, 9], leap: 5, cells: { q: 4, ee: 3, eqe: 1, de_s: 1, rq: 1, cqd: 3, ceee: 4, cq_e: 2, ce_ss_e: 1 }, bars: 8, leadingTone: true, clefs: ['treble', 'alto', 'bass'] },
+  { c: 'La modulation vers le relatif (majeur ↔ mineur)', keys: ['C', 'G', 'F', 'D', 'Am', 'Em', 'Dm', 'Bm'], meters: ['2/4', '3/4', '4/4', '6/8'], range: [-3, 9], leap: 5, cells: { q: 4, ee: 3, qd_e: 1, de_s: 1, rq: 1, cqd: 3, ceee: 4, cq_e: 2 }, bars: 8, leadingTone: true, modulate: 'relative', clefs: ['treble', 'bass', 'alto'] },
+  { c: 'Le chromatisme décoratif, la modulation à la dominante et à la sous-dominante', keys: ['C', 'G', 'F', 'D', 'Bb', 'A', 'Eb'], meters: ['2/4', '3/4', '4/4', '6/8'], range: [-3, 9], leap: 5, cells: { q: 4, ee: 3, ssss: 1, qd_e: 1, de_s: 1, trip: 1, rq: 1, cqd: 3, ceee: 4, cq_e: 2 }, bars: 8, chromatic: true, modulate: 'fifth', clefs: ['treble', 'bass', 'alto'] },
+];
+const TOTAL = LEVELS.length * 10;
+
+function weightedPick(rnd, weights) {
+  const entries = Object.entries(weights); const total = entries.reduce((s, [, w]) => s + w, 0);
+  let r = rnd() * total;
+  for (const [k, w] of entries) { r -= w; if (r <= 0) return k; }
+  return entries[entries.length - 1][0];
+}
+
+// ---- rhythm: fill one measure with cells ----
+function buildMeasure(rnd, level, meter, ticks, opts = {}) {
+  const compound = COMPOUND(meter);
+  const beat = compound ? 18 : 12;
+  const vocab = Object.fromEntries(Object.entries(level.cells).filter(([k]) => compound ? k.startsWith('c') : !k.startsWith('c')));
+  if (!Object.keys(vocab).length) Object.assign(vocab, compound ? { cqd: 2, ceee: 3, cq_e: 2 } : { q: 3, h: 1 });
+  const events = [];
+  let pos = 0;
+  if (opts.final) {                    // last measure: a long note on the tonic
+    const n = ticks - (opts.shortBy || 0);
+    if (n === 48 || n === 36 || n === 24 || n === 18 || n === 12) events.push({ t: n });
+    else if (n === 54) { events.push({ t: 36, tie: true }); events.push({ t: 18 }); }
+    else if (n === 72) events.push({ t: 72 });
+    else { let left = n; while (left > 0) { const t = left >= 24 ? 24 : left >= 12 ? 12 : left; events.push({ t, tie: left - t > 0 }); left -= t; } }
+    return events;
+  }
+  const limit = ticks - (opts.shortBy || 0);
+  while (pos < limit) {
+    const remaining = limit - pos;
+    const candidates = Object.fromEntries(Object.entries(vocab).filter(([k]) => {
+      const c = CELLS[k];
+      if (c.span > remaining) return false;
+      if (c.span > beat && (pos % beat) !== 0) return false;             // multi-beat cells start on a beat
+      if (k === 'sync' && remaining !== 48) return false;
+      if (c.r && opts.noRest) return false;
+      if (c.r && pos === 0 && opts.first) return false;                  // never start the dictation on a rest
+      return true;
+    }));
+    const k = Object.keys(candidates).length ? weightedPick(rnd, candidates) : null;
+    if (!k) { events.push({ t: Math.min(remaining, beat) }); pos += Math.min(remaining, beat); continue; }
+    const c = CELLS[k];
+    c.n.forEach((t, i) => events.push({ t, rest: !!(c.r && c.r[i]), tup: c.tup || 0, same: !!(c.same && i > 0), cell: k, cellPos: i }));
+    pos += c.span;
+  }
+  return events;
+}
+
+// ---- pitch: random walk in scale steps ----
+const CLEF_WINDOW = { treble: [24, 40], bass: [14, 30], alto: [20, 35] };   // F3–A5, C2–E4, B2–G4
+function clampRange(range, key, clef) {
+  const t = tonicDeg(key, clef), [wlo, whi] = CLEF_WINDOW[clef];
+  return [Math.max(range[0], wlo - t), Math.min(range[1], whi - t)];
+}
+function assignPitches(rnd, level, notes, range, startStep, endStep) {
+  const [lo, hi] = range;
+  startStep = Math.max(lo, Math.min(hi, startStep)); endStep = Math.max(lo, Math.min(hi, endStep));
+  const steps = new Array(notes.length);
+  const leap = level.leap || 1;
+  const wanted = (level.intervals || []).slice();     // intervals the level wants to feature
+  const slots = notes.map((n, i) => i).filter(i => i > 0 && i < notes.length - 2 && !notes[i].same);
+  const featured = {};
+  wanted.forEach(iv => { if (slots.length) featured[slots[Math.floor(rnd() * slots.length)]] = iv; });
+  let s = startStep, lastMove = 0;
+  for (let i = 0; i < notes.length; i++) {
+    if (i === 0) { steps[i] = s; continue; }
+    if (i === notes.length - 1) { s = endStep; steps[i] = s; continue; }
+    if (notes[i].same) { steps[i] = s; lastMove = 0; continue; }
+    let move;
+    if (featured[i] != null) {
+      const iv = featured[i]; move = (s + iv <= hi && (s - iv < lo || rnd() < 0.5)) ? iv : -iv;
+    } else if (i === notes.length - 2) {               // penultimate note: approach the final tonic by step or from the dominant
+      const choices = [endStep + 1, endStep - 1, endStep - 3, endStep + 4].filter(x => x >= lo && x <= hi && Math.abs(x - s) <= Math.max(leap, 2));
+      move = choices.length ? choices[Math.floor(rnd() * choices.length)] - s : (endStep > s ? 1 : -1);
+    } else {
+      const r = rnd();
+      const repeatP = level.repeats != null ? level.repeats : 0.08;
+      let size;
+      if (r < repeatP) size = 0;
+      else if (leap <= 1 || r < 0.72) size = 1;
+      else if (r < 0.9) size = 2;
+      else size = 2 + Math.floor(rnd() * (leap - 1));
+      if (level.arpeggio && rnd() < 0.18 && leap >= 4) size = [2, 2, 3][Math.floor(rnd() * 3)];
+      let dir;
+      if (Math.abs(lastMove) >= 3) dir = -Math.sign(lastMove);                       // resolve a leap by contrary motion
+      else dir = rnd() < 0.5 ? 1 : -1;
+      if (s + dir * size > hi) dir = -1; if (s + dir * size < lo) dir = 1;
+      if (s > hi - 1 && dir > 0) dir = -1; if (s < lo + 1 && dir < 0) dir = 1;
+      move = dir * size;
+    }
+    s = Math.max(lo, Math.min(hi, s + move));
+    lastMove = s - steps[i - 1];
+    steps[i] = s;
+  }
+  return steps;
+}
+
+// ---- alterations: leading tone, melodic minor, chromatic neighbours ----
+function alterations(rnd, level, key, steps, notes) {
+  const mode = KEYS[key][2];
+  const alts = new Array(steps.length).fill(0);
+  for (let i = 0; i < steps.length; i++) {
+    const d = ((steps[i] % 7) + 7) % 7;
+    const next = steps[i + 1], prev = steps[i - 1];
+    if (mode === 'min' && level.leadingTone && d === 6) {
+      // raised 7th when it leads to the tonic (above) or neighbours it
+      if (next === steps[i] + 1 || (prev === steps[i] + 1 && next === steps[i] + 1) || next == null || (next === steps[i] && steps[i + 2] === steps[i] + 1)) alts[i] = 1;
+    }
+    if (mode === 'min' && level.melodicMinor && d === 5 && next === steps[i] + 1) {   // raised 6th ascending to a raised 7th
+      alts[i] = 1; if (alts[i + 1] === 0 && i + 1 < steps.length) alts[i + 1] = 1;
+    }
+  }
+  if (level.chromatic) {
+    for (let i = 1; i < steps.length - 1; i++) {
+      // lower neighbour a whole tone below → raise it chromatically
+      if (steps[i] === steps[i - 1] - 1 && steps[i + 1] === steps[i - 1] && alts[i] === 0 && rnd() < 0.5) alts[i] = 1;
+    }
+  }
+  return alts;
+}
+
+// ---- turn scale steps into concrete notes ----
+function concreteNotes(key, clef, steps, alts) {
+  const [sig] = KEYS[key];
+  const tDeg = tonicDeg(key, clef);
+  const scaleAlt = (letter, stepInKey) => keySigAlt(sig, letter);
+  return steps.map((s, i) => {
+    const deg = tDeg + s; const letter = LETTERS[((deg % 7) + 7) % 7];
+    return { deg, letter, octave: Math.floor(deg / 7), alt: scaleAlt(letter) + (alts[i] || 0) };
+  });
+}
+
+// ---- ABC emission ----
+function abcPitch(n) {
+  let s = n.letter;
+  if (n.octave >= 5) s = s.toLowerCase() + "'".repeat(n.octave - 5);
+  else if (n.octave < 4) s = s + ','.repeat(4 - n.octave);
+  return s;
+}
+const ACC = { '-2': '__', '-1': '_', '0': '=', '1': '^', '2': '^^' };
+function abcLen(ticks) {           // L:1/16 → ticks/3
+  const u = ticks / 3;
+  return u === 1 ? '' : String(u);
+}
+
+/* generate exercise n (1-based) → { n, level, concept, key, clef, meter, bars, abc, measures[], firstNote } */
+function generate(n) {
+  const li = Math.min(LEVELS.length - 1, Math.floor((n - 1) / 10));
+  const level = LEVELS[li];
+  const rnd = mulberry32(1000003 * n + 7);
+  const key = level.keys[Math.floor(rnd() * level.keys.length)];
+  const clef = (level.clefs || ['treble'])[Math.floor(rnd() * (level.clefs || ['treble']).length)];
+  const meter = level.meters[Math.floor(rnd() * level.meters.length)];
+  const ticks = METER_TICKS[meter];
+  const bars = level.bars === 8 ? (rnd() < 0.6 ? 8 : 4) : level.bars;
+  const anacrusis = level.anacrusis && rnd() < 0.6;
+  const upbeat = anacrusis ? (COMPOUND(meter) ? 6 : 12) : 0;
+
+  // rhythm, measure by measure
+  const measures = [];
+  for (let m = 0; m < bars; m++) {
+    const final = m === bars - 1;
+    let ev;
+    if (m === 0 && anacrusis) ev = [{ t: upbeat, cell: 'up' }];
+    else ev = buildMeasure(rnd, level, meter, ticks, { final, shortBy: final && anacrusis ? upbeat : 0, first: m === 0, noRest: final });
+    measures.push(ev);
+  }
+  // ties across barlines (level.ties): same pitch, tie flag
+  if (level.ties) {
+    for (let m = 1; m < bars - 1; m++) {
+      const a = measures[m - 1][measures[m - 1].length - 1], b = measures[m][0];
+      if (!a.rest && !b.rest && !a.tup && !b.tup && rnd() < 0.5) { a.tie = true; b.same = true; }
+    }
+  }
+  // flatten notes (non-rest) for pitch assignment
+  const flat = []; measures.forEach((ev, m) => ev.forEach(e => { e.m = m; if (!e.rest) flat.push(e); }));
+  // modulation: split at the half, generate the second half in the new key
+  let key2 = null, splitIdx = flat.length;
+  if (level.modulate && bars >= 4) {
+    key2 = level.modulate === 'relative' ? relative(key) : shiftKey(key, rnd() < 0.5 ? 1 : -1);
+    if (!key2 || key2 === key) key2 = null;
+    else { const half = Math.floor(bars / 2); splitIdx = flat.findIndex(e => e.m >= half); if (splitIdx < 2) { key2 = null; splitIdx = flat.length; } }
+  }
+  const startOpts = level.start || ['tonic'];
+  const startKind = startOpts[Math.floor(rnd() * startOpts.length)];
+  const startStep = startKind === 'mediant' ? 2 : startKind === 'dominant' ? 4 : 0;
+  const [lo, hi] = clampRange(level.range, key, clef);
+  let steps, alts, notesOut;
+  if (!key2) {
+    const endStep = (hi >= 7 && rnd() < 0.5 && startStep !== 0) ? 7 : 0;
+    steps = assignPitches(rnd, level, flat, [lo, hi], startStep, endStep);
+    alts = alterations(rnd, level, key, steps, flat);
+    notesOut = concreteNotes(key, clef, steps, alts);
+  } else {
+    const first = flat.slice(0, splitIdx), second = flat.slice(splitIdx);
+    const s1 = assignPitches(rnd, level, first, [lo, hi], startStep, [0, 2, 4][Math.floor(rnd() * 3)]);
+    const a1 = alterations(rnd, level, key, s1, first);
+    const n1 = concreteNotes(key, clef, s1, a1);
+    // pivot: continue from the last note, expressed in the new key's steps
+    const tDeg2 = tonicDeg(key2, clef); const pivot = n1[n1.length - 1].deg - tDeg2;
+    const [clo2, chi2] = clampRange(level.range, key2, clef);
+    const lo2 = Math.min(clo2, pivot - 1), hi2 = Math.max(chi2, pivot + 1);
+    const s2 = assignPitches(rnd, level, second, [lo2, hi2], Math.max(lo2, Math.min(hi2, pivot + (rnd() < 0.5 ? 1 : -1))), 0);
+    const a2 = alterations(rnd, level, key2, s2, second);
+    const n2 = concreteNotes(key2, clef, s2, a2);
+    notesOut = n1.concat(n2);
+  }
+  flat.forEach((e, i) => { e.note = notesOut[i]; });
+
+  // ABC text
+  const [sig] = KEYS[key];
+  const abcKey = KEYS[key][1] + (sig > 0 ? (KEYS[key][1] === 'F' && KEYS[key][2] === 'min' ? '#' : (key.includes('#') ? '#' : '')) : (key.includes('b') ? 'b' : '')) + (KEYS[key][2] === 'min' ? 'm' : '');
+  const clefAbc = clef === 'bass' ? ' clef=bass' : clef === 'alto' ? ' clef=alto' : '';
+  const body = [];
+  measures.forEach((ev, m) => {
+    const state = {}; LETTERS.forEach(L => state[L] = keySigAlt(sig, L));
+    let out = '', tupLeft = 0;
+    ev.forEach((e, i) => {
+      const beatStart = i > 0 && (e.cellPos === 0 || !e.cell);
+      if (beatStart) out += ' ';
+      if (e.tup && e.cellPos === 0) { out += '(3'; tupLeft = 3; }
+      if (e.rest) { out += 'z' + abcLen(e.t); }
+      else {
+        const n = e.note;
+        let acc = '';
+        if (state[n.letter] !== n.alt) { acc = ACC[String(n.alt)]; state[n.letter] = n.alt; }
+        out += acc + abcPitch(n) + (e.tup ? abcLen(6) : abcLen(e.t)) + (e.tie ? '-' : '');
+      }
+    });
+    body.push(out);
+  });
+  const abcBody = body.join(' | ') + ' |]';
+  const firstNote = flat[0].note;
+  const abc = `X:${n}\nT:Exercice ${n}\nM:${meter}\nL:1/16\nK:${abcKey}${clefAbc}\n${abcBody}\n`;
+  return { n, level: li + 1, concept: level.c, key, key2, clef, meter, bars, anacrusis, abc, abcKey, clefAbc,
+           measures: body, firstNote: FR[firstNote.letter] + (firstNote.alt > 0 ? '♯' : firstNote.alt < 0 ? '♭' : '') + firstNote.octave,
+           header: `M:${meter}\nL:1/16\nK:${abcKey}${clefAbc}\n`,
+           tonicChord: (() => { const t = concreteNotes(key, clef, [0, 2, 4], [0, 0, 0]); return '[' + t.map(x => (x.alt ? ACC[String(x.alt)] : '') + abcPitch(x)).join('') + ']'; })(),
+           firstAbc: (firstNote.alt !== keySigAlt(sig, firstNote.letter) ? ACC[String(firstNote.alt)] : '') + abcPitch(firstNote) };
+}
+
+/* ====================================================================================
+   IMPORTED ABC (the user's own dictations)
+   ==================================================================================== */
+let imported = [];
+try { imported = JSON.parse(localStorage.getItem('dictee-import')) || []; } catch (e) {}
+function parseAbcFile(text) {
+  const tunes = text.replace(/\r/g, '').split(/\n(?=X:)/).map(t => t.trim()).filter(t => /^X:/.test(t));
+  return tunes.map(t => {
+    const lines = t.split('\n');
+    const header = [], body = [];
+    let inBody = false;
+    for (const l of lines) {
+      if (!inBody && /^[A-Za-z]:/.test(l)) { header.push(l); if (/^K:/.test(l)) inBody = true; }
+      else if (inBody) body.push(l);
+    }
+    const title = (header.find(l => /^T:/.test(l)) || 'T:Sans titre').slice(2).trim();
+    const meter = (header.find(l => /^M:/.test(l)) || 'M:4/4').slice(2).trim();
+    const keyLine = (header.find(l => /^K:/.test(l)) || 'K:C').slice(2).trim();
+    const bodyText = body.filter(l => !/^[A-Za-z]:/.test(l) && !/^%/.test(l)).join(' ');
+    const measures = bodyText.split(/\|\]|\|\||:\||\|:|\|/).map(s => s.trim()).filter(Boolean);
+    const hdr = header.filter(l => !/^[XT]:/.test(l)).join('\n') + '\n';
+    return { title, meter, keyLine, measures, header: hdr, abc: t + '\n' };
+  });
+}
+function saveImported() { try { localStorage.setItem('dictee-import', JSON.stringify(imported)); } catch (e) {} }
+
+/* ====================================================================================
+   UI + SEQUENCER
+   ==================================================================================== */
+const $ = id => document.getElementById(id);
+const SOUNDFONT = 'https://paulrosen.github.io/midi-js-soundfonts/abcjs/';
+let audioCtx = null, currentSynth = null, playing = false, cancelled = false, current = null, listened = false;
+
+function showBanner(t) { const b = $('banner'); b.textContent = t; b.style.display = 'block'; }
+
+function exerciseList() {
+  const sel = $('exerciseSel'); sel.innerHTML = '';
+  for (let n = 1; n <= TOTAL; n++) {
+    const li = Math.floor((n - 1) / 10);
+    const o = new Option(`n° ${n} — niveau ${li + 1} : ${LEVELS[li].c}`, 'g' + n);
+    sel.add(o);
+  }
+  imported.forEach((t, i) => sel.add(new Option(`★ ${t.title} (${t.meter}, ${t.measures.length} mes.)`, 'i' + i)));
+  $('importInfo').textContent = imported.length ? `${imported.length} dictée(s) importée(s).` : '';
+}
+function currentId() { return $('exerciseSel').value; }
+function loadCurrent() {
+  const id = currentId();
+  if (id.startsWith('g')) {
+    const g = generate(+id.slice(1));
+    current = { kind: 'gen', g, header: g.header, measures: g.measures, bars: g.bars, meter: g.meter,
+                keyLabel: keyLabel(g.key) + (g.key2 ? ' → ' + keyLabel(g.key2) : ''), clefLabel: CLEF_FR[g.clef], first: g.firstNote, abc: g.abc,
+                tonicChord: g.tonicChord, firstAbc: g.firstAbc, anacrusis: g.anacrusis };
+    $('concept').textContent = `Niveau ${g.level} — ${g.concept}`;
+  } else {
+    const t = imported[+id.slice(1)];
+    current = { kind: 'imp', header: t.header, measures: t.measures, bars: t.measures.length, meter: t.meter,
+                keyLabel: t.keyLine, clefLabel: /clef=bass/.test(t.keyLine) ? 'clé de fa' : /clef=alto/.test(t.keyLine) ? 'clé d\'ut' : 'clé de sol',
+                first: '—', abc: t.abc, tonicChord: null, firstAbc: null, anacrusis: false };
+    $('concept').textContent = `Dictée importée — ${t.title}`;
+  }
+  $('iKey').textContent = current.keyLabel; $('iMeter').textContent = current.meter;
+  $('iBars').textContent = current.bars; $('iFirst').textContent = current.first; $('iClef').textContent = current.clefLabel;
+  $('reviewCard').hidden = true; $('score').innerHTML = ''; $('status').textContent = 'Prêt.'; $('barFill').style.width = '0%';
+  listened = false; $('reviewBtn').disabled = false;
+  try { localStorage.setItem('dictee-last', id); } catch (e) {}
+}
+
+// ---- playback helpers ----
+function tempo() { return +$('tempoSel').value; }
+function abcFor(measureStrs, opts = {}) {
+  const q = `Q:1/4=${tempo()}\n`;
+  return `X:1\n${current.header}${q}${measureStrs.join(' | ')} |${opts.end ? ']' : ''}\n`;
+}
+function playAbc(abc) {
+  return new Promise((resolve, reject) => {
+    if (cancelled) return resolve();
+    const visualObj = ABCJS.renderAbc('hiddenScore', abc, { add_classes: false })[0];
+    const synth = new ABCJS.synth.CreateSynth();
+    currentSynth = synth;
+    synth.init({ audioContext: audioCtx, visualObj, options: { soundFontUrl: SOUNDFONT, program: 0, onEnded: () => { if (currentSynth === synth) currentSynth = null; resolve(); } } })
+      .then(() => synth.prime()).then(() => { if (cancelled) { resolve(); return; } synth.start(); })
+      .catch(reject);
+  });
+}
+function sleep(ms) { return new Promise(r => { const id = setTimeout(r, ms); sleepTimers.push(id); }); }
+const sleepTimers = [];
+function msPerMeasure() {
+  const beatsTicks = METER_TICKS[current.meter] || 48;
+  return (beatsTicks / 12) * (60000 / tempo());
+}
+function setStatus(t) { $('status').textContent = t; }
+
+async function runDictation() {
+  const groupSize = $('groupSel').value === 'all' ? current.bars : +$('groupSel').value;
+  const reps = +$('repSel').value, pauseFactor = +$('pauseSel').value, playWhole = $('finalSel').value === '1';
+  const groups = [];
+  for (let i = 0; i < current.bars; i += groupSize) groups.push([i, Math.min(current.bars, i + groupSize)]);
+  const totalSteps = groups.length * reps + (playWhole ? 1 : 0);
+  let step = 0;
+  const progress = () => { $('barFill').style.width = Math.round(100 * step / totalSteps) + '%'; };
+
+  // announce: tonic chord, then the first note (as in a dictation class)
+  if (current.tonicChord) {
+    setStatus('Accord de tonique et première note…');
+    await playAbc(`X:1\n${current.header}Q:1/4=${tempo()}\n${current.tonicChord}4 z4 ${current.firstAbc}4 z4 |]\n`);
+    if (cancelled) return;
+    await sleep(600);
+  }
+  for (let gi = 0; gi < groups.length && !cancelled; gi++) {
+    const [a, b] = groups[gi];
+    const abc = abcFor(current.measures.slice(a, b), { end: b === current.bars });
+    for (let r = 1; r <= reps && !cancelled; r++) {
+      setStatus(`Mesures ${a + 1}–${b} · écoute ${r}/${reps}`);
+      await playAbc(abc);
+      step++; progress();
+      if (cancelled) return;
+      const pause = Math.max(1500, (b - a) * msPerMeasure() * pauseFactor);
+      setStatus(`Mesures ${a + 1}–${b} · écrivez… (${Math.round(pause / 1000)} s)`);
+      await sleep(pause);
+    }
+  }
+  if (cancelled) return;
+  if (playWhole) {
+    setStatus('La dictée entière.');
+    await playAbc(abcFor(current.measures, { end: true }));
+    step++; progress();
+  }
+  if (!cancelled) { setStatus('Terminé. Comparez avec la correction.'); listened = true; }
+}
+
+function stopAll() {
+  cancelled = true;
+  sleepTimers.splice(0).forEach(clearTimeout);
+  if (currentSynth) { try { currentSynth.stop(); } catch (e) {} currentSynth = null; }
+}
+function unlockAudio() {           // must happen synchronously inside the tap (iOS)
+  if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  if (audioCtx.state === 'suspended') audioCtx.resume();
+}
+
+$('startBtn').addEventListener('click', async () => {
+  if (playing) return;
+  unlockAudio();
+  if (!current) loadCurrent();
+  $('reviewCard').hidden = true;
+  playing = true; cancelled = false;
+  $('startBtn').disabled = true; $('stopBtn').disabled = false;
+  try { await runDictation(); }
+  catch (e) { console.error(e); showBanner('Lecture impossible : ' + (e && e.message || e)); }
+  playing = false; $('startBtn').disabled = false; $('stopBtn').disabled = true;
+  if (cancelled) setStatus('Arrêté.');
+});
+$('stopBtn').addEventListener('click', () => { stopAll(); });
+
+function review() {
+  stopAll();
+  $('reviewCard').hidden = false;
+  ABCJS.renderAbc('score', current.abc, { responsive: 'resize', add_classes: true, staffwidth: 740 });
+  $('abcOut').value = current.abc;
+  $('reviewCard').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+$('reviewBtn').addEventListener('click', () => { if (!current) loadCurrent(); review(); });
+$('replayBtn').addEventListener('click', async () => {
+  unlockAudio(); stopAll(); cancelled = false;
+  $('replayBtn').disabled = true; $('replayStopBtn').disabled = false;
+  try { await playAbc(abcFor(current.measures, { end: true })); } catch (e) { showBanner('Lecture impossible : ' + (e && e.message || e)); }
+  $('replayBtn').disabled = false; $('replayStopBtn').disabled = true;
+});
+$('replayStopBtn').addEventListener('click', () => { stopAll(); });
+
+function moveExercise(delta) {
+  const sel = $('exerciseSel'); const i = sel.selectedIndex + delta;
+  if (i < 0 || i >= sel.options.length) return;
+  stopAll(); sel.selectedIndex = i; loadCurrent();
+}
+$('prevBtn').addEventListener('click', () => moveExercise(-1));
+$('nextBtn').addEventListener('click', () => moveExercise(1));
+$('nextExBtn').addEventListener('click', () => { moveExercise(1); window.scrollTo({ top: 0, behavior: 'smooth' }); });
+$('exerciseSel').addEventListener('change', () => { stopAll(); loadCurrent(); });
+['groupSel', 'repSel', 'tempoSel', 'pauseSel', 'finalSel'].forEach(id => $(id).addEventListener('change', () => {
+  try { localStorage.setItem('dictee-' + id, $(id).value); } catch (e) {}
+}));
+
+$('importFile').addEventListener('change', async (ev) => {
+  const f = ev.target.files[0]; if (!f) return;
+  try {
+    const text = await f.text();
+    const tunes = parseAbcFile(text);
+    if (!tunes.length) { showBanner('Aucune mélodie ABC trouvée dans ce fichier (il faut un en-tête X:).'); return; }
+    imported = imported.concat(tunes); saveImported(); exerciseList();
+    $('exerciseSel').value = 'i' + (imported.length - 1); loadCurrent();
+  } catch (e) { showBanner('Import impossible : ' + e.message); }
+  ev.target.value = '';
+});
+$('clearImportBtn').addEventListener('click', () => {
+  if (!imported.length || !confirm(`Supprimer les ${imported.length} dictées importées ?`)) return;
+  imported = []; saveImported(); exerciseList(); $('exerciseSel').selectedIndex = 0; loadCurrent();
+});
+
+// ---- init ----
+exerciseList();
+['groupSel', 'repSel', 'tempoSel', 'pauseSel', 'finalSel'].forEach(id => { try { const v = localStorage.getItem('dictee-' + id); if (v != null) $(id).value = v; } catch (e) {} });
+try { const last = localStorage.getItem('dictee-last'); if (last && [...$('exerciseSel').options].some(o => o.value === last)) $('exerciseSel').value = last; } catch (e) {}
+if (typeof ABCJS === 'undefined') showBanner('La bibliothèque abcjs n\'a pas pu être chargée (connexion réseau ?).');
+loadCurrent();
+</script>
+</body>
+</html>
