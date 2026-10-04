@@ -53,6 +53,8 @@
   details summary { cursor: pointer; color: var(--accent); font-weight: 600; }
   textarea { width: 100%; min-height: 100px; font-family: ui-monospace, Menlo, monospace; font-size: 13px; border-radius: 10px; border: 1.5px solid #d9def0; padding: 8px; }
   .row { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin-top: 10px; }
+  #settingsGrid { margin-top: 16px; padding-top: 14px; border-top: 1px solid #edf0f8; }
+  #settingsBtn.open { background: var(--accent); color: white; }
 </style>
 </head>
 <body>
@@ -75,6 +77,8 @@
       </div>
       <div class="concept" id="concept"></div>
     </div>
+  </div>
+  <div class="grid" id="settingsGrid" hidden>
     <div>
       <div class="label">Mesures jouées par groupe</div>
       <select id="groupSel">
@@ -95,14 +99,16 @@
     <div>
       <div class="label">Tempo</div>
       <select id="tempoSel">
-        <option value="60">♩ = 60</option><option value="72">♩ = 72</option><option value="84" selected>♩ = 84</option>
+        <option value="50" selected>♩ = 50</option><option value="60">♩ = 60</option><option value="72">♩ = 72</option><option value="84">♩ = 84</option>
         <option value="96">♩ = 96</option><option value="108">♩ = 108</option><option value="120">♩ = 120</option>
       </select>
     </div>
     <div>
-      <div class="label">Pause entre les écoutes</div>
-      <select id="pauseSel">
-        <option value="0.5">courte</option><option value="1" selected>normale</option><option value="2">longue</option>
+      <div class="label">Décompte à voix haute</div>
+      <select id="countSel">
+        <option value="each" selected>avant chaque écoute</option>
+        <option value="first">une fois au début</option>
+        <option value="none">aucun</option>
       </select>
     </div>
     <div>
@@ -115,8 +121,10 @@
   </div>
   <div id="controls">
     <button id="startBtn">▶ Commencer la dictée</button>
+    <button id="stepBtn" disabled>▶ Suivant</button>
     <button id="stopBtn" class="secondary" disabled>⏹ Arrêter</button>
     <button id="reviewBtn" class="secondary" disabled>👁 Réviser</button>
+    <button id="settingsBtn" class="secondary" aria-expanded="false">⚙ Réglages</button>
   </div>
 </div>
 
@@ -125,12 +133,11 @@
     <div class="stat"><div class="value" id="iKey">—</div><div class="lbl">tonalité</div></div>
     <div class="stat"><div class="value" id="iMeter">—</div><div class="lbl">mesure</div></div>
     <div class="stat"><div class="value" id="iBars">—</div><div class="lbl">mesures</div></div>
-    <div class="stat"><div class="value" id="iFirst">—</div><div class="lbl">première note</div></div>
     <div class="stat"><div class="value" id="iClef">—</div><div class="lbl">clé</div></div>
   </div>
   <div id="status">Prêt.</div>
   <div id="bar"><div id="barFill"></div></div>
-  <div class="hint">La partition reste cachée pendant la dictée. Le bouton « Réviser » l'affiche.</div>
+  <div class="hint">Rien ne s'enchaîne tout seul : après chaque écoute, écrivez, puis appuyez sur « Suivant » pour la réécoute ou le groupe suivant. La partition reste cachée jusqu'à « Réviser ».</div>
 </div>
 
 <div class="card" id="reviewCard" hidden>
@@ -583,7 +590,7 @@ function importedAnnounce(t) {
    ==================================================================================== */
 const $ = id => document.getElementById(id);
 const SOUNDFONT = 'https://paulrosen.github.io/midi-js-soundfonts/abcjs/';
-let audioCtx = null, currentSynth = null, playing = false, cancelled = false, current = null, listened = false;
+let audioCtx = null, currentSynth = null, cancelled = false, current = null, listened = false;
 
 function showBanner(t) { const b = $('banner'); b.textContent = t; b.style.display = 'block'; }
 
@@ -615,9 +622,9 @@ function loadCurrent() {
     $('concept').textContent = `Dictée importée — ${t.title}` + (t.section ? ` · ${t.section}` : '');
   }
   $('iKey').textContent = current.keyLabel; $('iMeter').textContent = current.meter;
-  $('iBars').textContent = current.bars; $('iFirst').textContent = current.first; $('iClef').textContent = current.clefLabel;
+  $('iBars').textContent = current.bars; $('iClef').textContent = current.clefLabel;
   $('reviewCard').hidden = true; $('score').innerHTML = ''; $('status').textContent = 'Prêt.'; $('barFill').style.width = '0%';
-  listened = false; $('reviewBtn').disabled = false;
+  listened = false; $('reviewBtn').disabled = false; resetSteps();
   try { localStorage.setItem('dictee-last', id); } catch (e) {}
 }
 
@@ -646,39 +653,93 @@ function msPerMeasure() {
 }
 function setStatus(t) { $('status').textContent = t; }
 
-async function runDictation() {
-  const groupSize = $('groupSel').value === 'all' ? current.bars : +$('groupSel').value;
-  const reps = +$('repSel').value, pauseFactor = +$('pauseSel').value, playWhole = $('finalSel').value === '1';
-  const groups = [];
-  for (let i = 0; i < current.bars; i += groupSize) groups.push([i, Math.min(current.bars, i + groupSize)]);
-  const totalSteps = groups.length * reps + (playWhole ? 1 : 0);
-  let step = 0;
-  const progress = () => { $('barFill').style.width = Math.round(100 * step / totalSteps) + '%'; };
+// ---- spoken count-in: one full bar of beats at the current tempo ("un, deux, trois, quatre") ----
+const NUM_FR = ['un', 'deux', 'trois', 'quatre', 'cinq', 'six', 'sept', 'huit', 'neuf', 'dix', 'onze', 'douze'];
+function beatsOf(meter) {
+  const m = /^(\d+)\/(\d+)$/.exec(meter || ''); if (!m) return null;
+  const n = +m[1], d = +m[2], q = 60000 / tempo();
+  if (d === 8 && n % 3 === 0 && n > 3) return { count: n / 3, ms: q * 1.5 };   // 6/8, 9/8, 12/8: dotted-quarter beats
+  if (d === 8) return { count: n, ms: q / 2 };                                   // 3/8: count the eighths
+  if (d === 2) return { count: n, ms: q * 2 };
+  return { count: n, ms: q };
+}
+function click() {                                   // fallback when no speech voice is available
+  try {
+    const o = audioCtx.createOscillator(), g = audioCtx.createGain();
+    o.frequency.value = 1000; g.gain.value = 0.2; o.connect(g); g.connect(audioCtx.destination);
+    o.start(); g.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 0.08); o.stop(audioCtx.currentTime + 0.1);
+  } catch (e) {}
+}
+function say(word) {
+  if (!('speechSynthesis' in window)) { click(); return; }
+  const u = new SpeechSynthesisUtterance(word);
+  u.lang = 'fr-FR'; u.rate = 1.3; u.volume = 1;
+  const v = speechSynthesis.getVoices().find(x => /^fr/i.test(x.lang));
+  if (v) u.voice = v;
+  speechSynthesis.speak(u);
+}
+async function countIn() {
+  const b = beatsOf(current.meter); if (!b) return;
+  for (let i = 0; i < b.count && !cancelled; i++) {
+    setStatus(`Décompte : ${NUM_FR[i]}`);
+    say(NUM_FR[i]);
+    await sleep(b.ms);
+  }
+}
 
-  for (let gi = 0; gi < groups.length && !cancelled; gi++) {
-    const [a, b] = groups[gi];
+/* step-driven dictation: Start plays step 0; "Suivant" plays the next step (a repeat of the
+   same group, the next group, or the whole piece at the end). Nothing auto-advances. */
+let steps = [], stepIdx = -1, stepRunning = false;
+function buildSteps() {
+  const groupSize = $('groupSel').value === 'all' ? current.bars : +$('groupSel').value;
+  const reps = +$('repSel').value, playWhole = $('finalSel').value === '1';
+  steps = [];
+  for (let a = 0; a < current.bars; a += groupSize) {
+    const b = Math.min(current.bars, a + groupSize);
     const abc = abcFor(current.measures.slice(a, b), { end: b === current.bars });
-    for (let r = 1; r <= reps && !cancelled; r++) {
-      setStatus(`Mesures ${a + 1}–${b} · écoute ${r}/${reps}`);
-      await playAbc(abc);
-      step++; progress();
-      if (cancelled) return;
-      const pause = Math.max(1500, (b - a) * msPerMeasure() * pauseFactor);
-      setStatus(`Mesures ${a + 1}–${b} · écrivez… (${Math.round(pause / 1000)} s)`);
-      await sleep(pause);
-    }
+    for (let r = 1; r <= reps; r++) steps.push({ a, b, r, reps, abc });
   }
-  if (cancelled) return;
-  if (playWhole) {
-    setStatus('La dictée entière.');
-    await playAbc(abcFor(current.measures, { end: true }));
-    step++; progress();
+  if (playWhole) steps.push({ whole: true, abc: abcFor(current.measures, { end: true }) });
+  stepIdx = -1;
+}
+function stepLabel(s) {
+  if (!s) return 'Terminé';
+  if (s.whole) return 'Dictée entière';
+  return `Mesures ${s.a + 1}–${s.b}` + (s.reps > 1 ? ` (${s.r}/${s.reps})` : '');
+}
+function resetSteps() {
+  steps = []; stepIdx = -1;
+  $('stepBtn').disabled = true; $('stepBtn').textContent = '▶ Suivant';
+  $('barFill').style.width = '0%';
+}
+async function runStep(i) {
+  const s = steps[i]; if (!s || stepRunning) return;
+  stepRunning = true; cancelled = false;
+  $('startBtn').disabled = true; $('stepBtn').disabled = true; $('stopBtn').disabled = false;
+  $('reviewCard').hidden = true;
+  try {
+    const countMode = $('countSel').value;
+    if (countMode === 'each' || (countMode === 'first' && i === 0)) await countIn();
+    if (!cancelled) { setStatus((s.whole ? 'La dictée entière' : `Mesures ${s.a + 1}–${s.b} · écoute ${s.r}/${s.reps}`) + '…'); await playAbc(s.abc); }
+  } catch (e) { console.error(e); showBanner('Lecture impossible : ' + (e && e.message || e)); }
+  stepRunning = false;
+  $('startBtn').disabled = false; $('stopBtn').disabled = true;
+  if (cancelled) { setStatus('Arrêté.'); resetSteps(); return; }
+  stepIdx = i;
+  $('barFill').style.width = Math.round(100 * (i + 1) / steps.length) + '%';
+  const next = steps[i + 1];
+  if (next) {
+    $('stepBtn').disabled = false; $('stepBtn').textContent = '▶ Suivant : ' + stepLabel(next);
+    setStatus(stepLabel(s) + ' — écrivez, puis « Suivant ».');
+  } else {
+    $('stepBtn').disabled = true; $('stepBtn').textContent = 'Terminé';
+    setStatus('Terminé. Comparez avec la correction.'); listened = true;
   }
-  if (!cancelled) { setStatus('Terminé. Comparez avec la correction.'); listened = true; }
 }
 
 function stopAll() {
   cancelled = true;
+  try { if ('speechSynthesis' in window) speechSynthesis.cancel(); } catch (e) {}
   sleepTimers.splice(0).forEach(clearTimeout);
   if (currentSynth) { try { currentSynth.stop(); } catch (e) {} currentSynth = null; }
 }
@@ -687,19 +748,19 @@ function unlockAudio() {           // must happen synchronously inside the tap (
   if (audioCtx.state === 'suspended') audioCtx.resume();
 }
 
-$('startBtn').addEventListener('click', async () => {
-  if (playing) return;
+$('startBtn').addEventListener('click', () => {
+  if (stepRunning) return;
   unlockAudio();
   if (!current) loadCurrent();
-  $('reviewCard').hidden = true;
-  playing = true; cancelled = false;
-  $('startBtn').disabled = true; $('stopBtn').disabled = false;
-  try { await runDictation(); }
-  catch (e) { console.error(e); showBanner('Lecture impossible : ' + (e && e.message || e)); }
-  playing = false; $('startBtn').disabled = false; $('stopBtn').disabled = true;
-  if (cancelled) setStatus('Arrêté.');
+  buildSteps();
+  runStep(0);
 });
+$('stepBtn').addEventListener('click', () => { if (stepRunning) return; unlockAudio(); runStep(stepIdx + 1); });
 $('stopBtn').addEventListener('click', () => { stopAll(); });
+$('settingsBtn').addEventListener('click', () => {
+  const g = $('settingsGrid'), on = g.hidden;
+  g.hidden = !on; $('settingsBtn').classList.toggle('open', on); $('settingsBtn').setAttribute('aria-expanded', String(on));
+});
 
 function review() {
   stopAll();
@@ -726,8 +787,9 @@ $('prevBtn').addEventListener('click', () => moveExercise(-1));
 $('nextBtn').addEventListener('click', () => moveExercise(1));
 $('nextExBtn').addEventListener('click', () => { moveExercise(1); window.scrollTo({ top: 0, behavior: 'smooth' }); });
 $('exerciseSel').addEventListener('change', () => { stopAll(); loadCurrent(); });
-['groupSel', 'repSel', 'tempoSel', 'pauseSel', 'finalSel'].forEach(id => $(id).addEventListener('change', () => {
+['groupSel', 'repSel', 'tempoSel', 'finalSel', 'countSel'].forEach(id => $(id).addEventListener('change', () => {
   try { localStorage.setItem('dictee-' + id, $(id).value); } catch (e) {}
+  if (!stepRunning) resetSteps();
 }));
 
 $('importFile').addEventListener('change', async (ev) => {
@@ -753,8 +815,9 @@ $('clearImportBtn').addEventListener('click', () => {
 });
 
 // ---- init ----
+try { if ('speechSynthesis' in window) { speechSynthesis.getVoices(); speechSynthesis.onvoiceschanged = () => speechSynthesis.getVoices(); } } catch (e) {}
 exerciseList();
-['groupSel', 'repSel', 'tempoSel', 'pauseSel', 'finalSel'].forEach(id => { try { const v = localStorage.getItem('dictee-' + id); if (v != null) $(id).value = v; } catch (e) {} });
+['groupSel', 'repSel', 'tempoSel', 'finalSel', 'countSel'].forEach(id => { try { const v = localStorage.getItem('dictee-' + id); if (v != null) $(id).value = v; } catch (e) {} });
 try { const last = localStorage.getItem('dictee-last'); if (last && [...$('exerciseSel').options].some(o => o.value === last)) $('exerciseSel').value = last; } catch (e) {}
 if (typeof ABCJS === 'undefined') showBanner('La bibliothèque abcjs n\'a pas pu être chargée (connexion réseau ?).');
 loadCurrent();
