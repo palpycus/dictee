@@ -147,9 +147,9 @@
 <div class="card">
   <details>
     <summary>Mes dictées (import ABC)</summary>
-    <p class="hint" style="text-align:left">Importez un fichier .abc contenant une ou plusieurs mélodies (un en-tête <code>X:</code> par mélodie). Elles sont conservées dans ce navigateur et apparaissent en bas de la liste des exercices.</p>
+    <p class="hint" style="text-align:left">Importez un ou plusieurs fichiers : <strong>.abc</strong> (un en-tête <code>X:</code> par mélodie) ou <strong>.json</strong> (un objet, ou un tableau d'objets, avec un champ <code>abc</code>). Les mélodies sont conservées dans ce navigateur et apparaissent en bas de la liste des exercices.</p>
     <div class="row">
-      <input type="file" id="importFile" accept=".abc,.txt,text/plain">
+      <input type="file" id="importFile" accept=".abc,.txt,.json,text/plain,application/json" multiple>
       <button id="clearImportBtn" class="danger">Supprimer mes dictées</button>
     </div>
     <div class="hint" id="importInfo" style="text-align:left"></div>
@@ -544,6 +544,39 @@ function parseAbcFile(text) {
   });
 }
 function saveImported() { try { localStorage.setItem('dictee-import', JSON.stringify(imported)); } catch (e) {} }
+// JSON: one object or an array of objects; each object must carry an "abc" string (other fields optional)
+function parseJsonFile(text) {
+  let data = JSON.parse(text);
+  if (!Array.isArray(data)) data = [data];
+  const tunes = [];
+  for (const item of data) {
+    if (!item || typeof item.abc !== 'string') continue;
+    const t = parseAbcFile(item.abc)[0];
+    if (!t) continue;
+    if (item.number != null) t.title = `Dictée ${item.number}${item.variant ? ' ' + item.variant : ''}`;
+    if (item.section) t.section = String(item.section);
+    tunes.push(t);
+  }
+  return tunes;
+}
+// announcement data (tonic chord + first note) derived from an imported tune's K: line and first measure
+function importedAnnounce(t) {
+  const m = /^([A-G])([#b]?)\s*(m|min|minor|maj|major|dor|mix|lyd|phr|loc)?/i.exec(t.keyLine.trim());
+  const clef = /clef=bass/.test(t.keyLine) ? 'bass' : /clef=alto/.test(t.keyLine) ? 'alto' : 'treble';
+  let keyName = null;
+  if (m) { const mode = (m[3] || '').toLowerCase(); keyName = m[1].toUpperCase() + (m[2] || '') + (/^m(in|inor)?$/.test(mode) ? 'm' : ''); if (!KEYS[keyName]) keyName = null; }
+  const first = /([_^=]*)([A-Ga-g][,']*)/.exec(t.measures[0] || '');
+  let chord = null;
+  if (keyName) { const tri = concreteNotes(keyName, clef, [0, 2, 4], [0, 0, 0]); chord = '[' + tri.map(x => (x.alt ? ACC[String(x.alt)] : '') + abcPitch(x)).join('') + ']'; }
+  let firstLabel = '—';
+  if (first) {
+    const L = first[2][0].toUpperCase(); const up = /[a-g]/.test(first[2][0]);
+    const oct = (up ? 5 : 4) + (first[2].match(/'/g) || []).length - (first[2].match(/,/g) || []).length;
+    const alt = first[1] === '^' ? '♯' : first[1] === '_' ? '♭' : '';
+    firstLabel = FR[L] + alt + oct;
+  }
+  return { keyLabel: keyName ? keyLabel(keyName) : t.keyLine, clef, chord, firstAbc: first ? first[0] : null, firstLabel };
+}
 
 /* ====================================================================================
    UI + SEQUENCER
@@ -575,10 +608,11 @@ function loadCurrent() {
     $('concept').textContent = `Niveau ${g.level} — ${g.concept}`;
   } else {
     const t = imported[+id.slice(1)];
+    const a = importedAnnounce(t);
     current = { kind: 'imp', header: t.header, measures: t.measures, bars: t.measures.length, meter: t.meter,
-                keyLabel: t.keyLine, clefLabel: /clef=bass/.test(t.keyLine) ? 'clé de fa' : /clef=alto/.test(t.keyLine) ? 'clé d\'ut' : 'clé de sol',
-                first: '—', abc: t.abc, tonicChord: null, firstAbc: null, anacrusis: false };
-    $('concept').textContent = `Dictée importée — ${t.title}`;
+                keyLabel: a.keyLabel, clefLabel: CLEF_FR[a.clef],
+                first: a.firstLabel, abc: t.abc, tonicChord: a.chord, firstAbc: a.firstAbc, anacrusis: false };
+    $('concept').textContent = `Dictée importée — ${t.title}` + (t.section ? ` · ${t.section}` : '');
   }
   $('iKey').textContent = current.keyLabel; $('iMeter').textContent = current.meter;
   $('iBars').textContent = current.bars; $('iFirst').textContent = current.first; $('iClef').textContent = current.clefLabel;
@@ -704,13 +738,19 @@ $('exerciseSel').addEventListener('change', () => { stopAll(); loadCurrent(); })
 }));
 
 $('importFile').addEventListener('change', async (ev) => {
-  const f = ev.target.files[0]; if (!f) return;
+  const files = [...ev.target.files]; if (!files.length) return;
+  let added = [];
   try {
-    const text = await f.text();
-    const tunes = parseAbcFile(text);
-    if (!tunes.length) { showBanner('Aucune mélodie ABC trouvée dans ce fichier (il faut un en-tête X:).'); return; }
-    imported = imported.concat(tunes); saveImported(); exerciseList();
-    $('exerciseSel').value = 'i' + (imported.length - 1); loadCurrent();
+    for (const f of files) {
+      const text = await f.text();
+      const isJson = /\.json$/i.test(f.name) || /^\s*[\[{]/.test(text);
+      added = added.concat(isJson ? parseJsonFile(text) : parseAbcFile(text));
+    }
+    if (!added.length) { showBanner('Aucune mélodie trouvée (il faut un en-tête X: en ABC, ou un champ "abc" en JSON).'); return; }
+    const before = imported.length;
+    imported = imported.concat(added); saveImported(); exerciseList();
+    $('exerciseSel').value = 'i' + before; loadCurrent();
+    $('importInfo').textContent = `${added.length} mélodie(s) ajoutée(s) — ${imported.length} au total.`;
   } catch (e) { showBanner('Import impossible : ' + e.message); }
   ev.target.value = '';
 });
